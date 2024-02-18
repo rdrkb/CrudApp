@@ -25,6 +25,11 @@ export class MessageComponent implements OnInit, OnDestroy {
   currentUser: any;
   socketSubscription!: Subscription;
 
+  currentPage: number = 1;
+  listPerPage: number = 2;
+  totalList: number = 0;
+  totalPage: number = 0;
+
   constructor(private messageService: MessageService, private accountService: AccountService, private route: ActivatedRoute) {}
 
   ngOnInit() {
@@ -78,5 +83,9 @@ export class MessageComponent implements OnInit, OnDestroy {
 
       this.newMessage = '';
     }
+  }
+  onPageChange(pageNumber: number)
+  {
+
   }
 }

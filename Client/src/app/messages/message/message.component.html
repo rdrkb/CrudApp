@@ -2,7 +2,14 @@
 
 <div class="message-container">
   <div class="receiver-name">
-    <p>Chatting with {{receiver | titlecase}}</p>
+    <p style="padding-left: 10px">Chatting with {{receiver | titlecase}}</p>
+  </div>
+  <div class="pagination">
+    <ng-container *ngIf="totalList == 0">
+      <div class="pagination">
+        <button class="more-btn" (click)="onPageChange(currentPage - 1)">See more..</button>
+      </div>
+    </ng-container>
   </div>
   <div class="message-table">
     <table>
