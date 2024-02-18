@@ -1,0 +1,33 @@
+<div class="data-form">
+  <div class="form-title">
+    Update Admin's Information
+  </div>
+  <form (ngSubmit)="onSubmit()" #editForm>
+
+    <Label>Admin's Name</Label>
+    <input type="text" placeholder="Name" [(ngModel)]="formFields['name']" name="name" required>
+
+    <Label>Gender</Label>
+    <select [(ngModel)]="formFields['gender']" id="gender" name="gender" required>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+    </select>
+
+    <Label>Blood Group</Label>
+    <select [(ngModel)]="formFields['blood_group']" id="blood_group" name="blood_group" required>
+      <option value="A+">A+</option>
+      <option value="A-">A-</option>
+      <option value="B+">B+</option>
+      <option value="B-">B-</option>
+      <option value="AB+">AB+</option>
+      <option value="AB-">AB-</option>
+      <option value="O+">O+</option>
+      <option value="O-">O-</option>
+    </select>
+
+    <div class="form-footer">
+      <button class="delete-btn" type="button" (click)="onCancel()">Cancel</button>
+      <button class="update-btn" type="submit">Update</button>
+    </div>
+  </form>
+</div>

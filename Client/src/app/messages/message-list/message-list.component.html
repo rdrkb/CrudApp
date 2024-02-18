@@ -1,0 +1,33 @@
+<app-home-nav></app-home-nav>
+
+<div style="overflow-x: auto; width: 90%; margin: auto">
+  <table class="message-list">
+    <thead>
+    <tr>
+      <th>Sender</th>
+      <th>Receiver</th>
+      <th>Last Message</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let message of messages" class="message-item">
+      <td>{{ message.sender }}</td>
+      <td>{{ message.receiver }}</td>
+      <td>{{ message.lastMessage | date:'medium' }}</td>
+      <td>
+        <button class="see-message-btn" (click)="seeMessage(message)">See Message</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="pagination">
+      <button class="previous-button" (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1 || totalList === 0">Previous</button>
+
+      <button class="next-button" (click)="onPageChange(currentPage + 1)" [disabled]="currentPage === totalPage || totalList === 0">Next</button>
+  </div>
+</div>
+
+
+
+<router-outlet></router-outlet>

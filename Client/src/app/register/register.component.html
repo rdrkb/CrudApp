@@ -1,0 +1,17 @@
+<form (ngSubmit)="onSubmit()" class="my-form">
+  <label for="username">Username:</label>
+  <input type="text" id="username" name="username" [(ngModel)]="user.username" required>
+
+  <label for="password">Password:</label>
+  <input type="password" id="password" name="password" [(ngModel)]="user.password" required>
+
+  <label for="role">Role:</label>
+  <select id="role" name="role" [(ngModel)]="user.role" required>
+    <option value="admin">Admin</option>
+    <option value="teacher">Teacher</option>
+    <option value="student">Student</option>
+  </select>
+
+  <button type="submit" class="btn btn-primary">Register</button>
+  <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancel</button>
+</form>

@@ -1,0 +1,18 @@
+<div class="filter-popup">
+    <h2>Filter Options</h2>
+    <form (ngSubmit)="applyfilter()">
+  
+      <label for="university">University:</label>
+      <select id="university" name="university" [(ngModel)]="filterOptions.university">
+        <option *ngFor="let uni of universities" [value]="uni">{{ uni }}</option>
+      </select>
+  
+      <label for="department">Department:</label>
+      <select id="department" name="department" [(ngModel)]="filterOptions.department">
+        <option *ngFor="let dept of departments" [value]="dept">{{ dept }}</option>
+      </select>
+  
+      <button type="submit" class="submit-button">Apply Filter</button>
+      <button type="button" (click)="closefilter()" class="close-button">Close</button>
+    </form>
+  </div>

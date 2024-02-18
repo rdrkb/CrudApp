@@ -1,0 +1,63 @@
+<app-home-nav></app-home-nav>
+
+<div class="user-profile">
+  <div class="profile-title">
+    <p>My Profile</p>
+  </div>
+  <div class="profile-header">
+
+    <div class="message">
+      <button routerLink="/chatList" class="msg-btn">Inbox</button>
+    </div>
+    
+    <div class="user-actions">
+      <button (click)="partialUpdate()" class="update-button">Partial Update</button>
+      <button (click)="deleteAccount()" class="delete-button">Delete Account</button>
+    </div>
+  </div>
+
+  <div class="user-details">
+    <table class="profile-table">
+      <thead>
+      <tr>
+        <th class="attribute-header">Attribute</th>
+        <th class="information-header">Information</th>
+      </tr>
+      </thead>
+      <tbody *ngIf="userData">
+      <tr>
+        <td class="attribute">Name</td>
+        <td class="information">{{ userData.name }}</td>
+      </tr>
+      <tr>
+        <td class="attribute">Username</td>
+        <td class="information">{{ userData.username }}</td>
+      </tr>
+      <tr>
+        <td class="attribute">Student ID</td>
+        <td class="information">{{ userData.student_id }}</td>
+      </tr>
+      <tr>
+        <td class="attribute">University</td>
+        <td class="information">{{ userData.university }}</td>
+      </tr>
+      <tr>
+        <td class="attribute">Department</td>
+        <td class="information">{{ userData.department }}</td>
+      </tr>
+      <tr>
+        <td class="attribute">Graduation Year</td>
+        <td class="information">{{ userData.year_of_graduation }}</td>
+      </tr>
+      <tr>
+        <td class="attribute">Gender</td>
+        <td class="information">{{ userData.gender }}</td>
+      </tr>
+      <tr>
+        <td class="attribute">Blood Group</td>
+        <td class="information">{{ userData.blood_group }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<app-home-nav></app-home-nav>
+
+<div class="message-container">
+  <div class="receiver-name">
+    <p>Chatting with {{receiver | titlecase}}</p>
+  </div>
+  <div class="message-table">
+    <table>
+      <thead>
+
+      </thead>
+      <tbody>
+      <tr *ngFor="let message of messages" class="message-row">
+        <td>
+          <div class="message-column received-message" *ngIf="receiver == message.sender">
+            {{message.content}}
+          </div>
+
+          <div class="message-column sent-message" *ngIf="currentUser.username == message.sender">
+            {{message.content}}
+          </div>
+        </td>
+      </tr>
+      </tbody>
+
+    </table>
+  </div>
+  <div class="message-input">
+    <input type="text" [(ngModel)]="newMessage" placeholder="Type your message here..." class="message-textbox">
+    <button class="send-button" (click)="OnClick()">Send</button>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="container">
+  <nav class="navbar">
+    <div *ngIf="currentUser.role === 'admin'" class="menu">
+      <a routerLink="/adminHome">Home</a>
+      <a routerLink="/adminView">Admin Panel</a>
+      <a routerLink="/studentView">Students</a>
+      <a routerLink="/teacherView">Teachers</a>
+    </div>
+    <div *ngIf="currentUser.role === 'student'" class="menu">
+      <a routerLink="/studentHome">Home</a>
+      <a routerLink="/studentView">Students</a>
+    </div>
+    <div *ngIf="currentUser.role === 'teacher'" class="menu">
+      <a routerLink="/teacherHome">Home</a>
+      <a routerLink="/teacherView">Teachers</a>
+    </div>
+    <div class="user-info">
+      <p>Welcome!!! {{currentUser.username}} </p>
+      <a *ngIf="currentUser.role === 'admin'" routerLink="/adminEdit">Edit Profile</a>
+      <a *ngIf="currentUser.role === 'student'" routerLink="/studentEdit">Edit Profile</a>
+      <a *ngIf="currentUser.role === 'teacher'" routerLink="/teacherEdit">Edit Profile</a>
+      <button (click)="logout()">Logout</button>
+    </div>
+  </nav>
+</div>

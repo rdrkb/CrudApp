@@ -1,0 +1,66 @@
+/* Style for the container holding the table */
+div {
+  margin: 20px;
+}
+
+/* Style for the table */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+/* Style for table headers */
+.admin-table th {
+  background-color: #575b5e;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+/* Style for table rows */
+.admin-table td {
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+/* Style for alternate row colors */
+.admin-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Style for the container with horizontal scrolling */
+div[style="overflow-x: auto;"] {
+  overflow-x: auto;
+}
+
+/* Optional: Style for scrollbar */
+div[style="overflow-x: auto;"]::-webkit-scrollbar {
+  width: 12px;
+}
+
+div[style="overflow-x: auto;"]::-webkit-scrollbar-thumb {
+  background-color: #3498db;
+  border-radius: 10px;
+}
+
+div[style="overflow-x: auto;"]::-webkit-scrollbar-track {
+  background-color: #f2f2f2;
+}
+
+.send-message-button {
+  background-color: #40668e;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.send-message-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed; 
+}
+

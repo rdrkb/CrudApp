@@ -1,0 +1,23 @@
+<div *ngIf="!loggedIn">
+  <nav *ngIf="!registerMode" class="my-navigation">
+    <div>
+      <ul>
+        <li *ngIf="!loggedIn" class="nav-item">
+          <button class="btn btn-primary" (click)="onRegister()">Register</button>
+        </li>
+        <li *ngIf="loggedIn" class="nav-item">
+          <button class="btn btn-danger" (click)="logout()">Logout</button>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <form *ngIf="!loggedIn" #loginForm="ngForm" (ngSubmit)="login()" class="login-form">
+        <input name="username" [(ngModel)]="model.username" type="text" placeholder="Username" class="form-control">
+        <input name="password" [(ngModel)]="model.password" type="password" placeholder="Password" class="form-control">
+
+        <button class="btn btn-outline-success" type="submit">Login</button>
+      </form>
+    </div>
+  </nav>
+</div>
+<app-register *ngIf="registerMode" (Register)="register()" (cancelRegister)="cancelRegisterMode($event)"></app-register>

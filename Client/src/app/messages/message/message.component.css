@@ -1,0 +1,96 @@
+
+/* Message Container */
+.message-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+/* Receiver Name */
+.receiver-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Message Table */
+.message-table {
+  width: 100%;
+}
+
+/* Message Row */
+.message-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+/* Received Message */
+.received-message {
+  background-color: #e0e0e0;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* Sent Message */
+.sent-message {
+  background-color: #0084ff;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* Message Input */
+.message-input {
+  margin-top: 20px;
+  display: flex;
+}
+
+/* Message Textbox */
+.message-textbox {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* Send Button */
+.send-button {
+  padding: 10px 20px;
+  background-color: #0084ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+/* Send Button Hover */
+.send-button:hover {
+  background-color: #0056b3;
+}
+/* Message Column */
+.message-column {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Received Message */
+.received-message {
+  align-self: flex-start;
+  background-color: #b69898;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+/* Sent Message */
+.sent-message {
+  align-self: flex-end;
+  background-color: #4d5c69;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}

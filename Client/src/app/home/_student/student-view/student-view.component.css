@@ -1,0 +1,176 @@
+/* Style for the table container */
+div[style="overflow-x: auto;"] {
+  margin: 20px;
+}
+
+/* Style for the student table */
+.student-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+/* Style for table headers */
+.student-table th {
+  background-color: #92969a;
+  color: #fff;
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+/* Style for table cells */
+.student-table td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+/* Style for odd rows */
+.student-table tbody tr:nth-child(odd) {
+  background-color: #f8f8f8;
+}
+
+/* Style for even rows */
+.student-table tbody tr:nth-child(even) {
+  background-color: #fff;
+}
+
+/* Hover effect on table rows */
+.student-table tbody tr:hover {
+  background-color: #e0e0e0;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f3eded;
+  padding: 10px;
+  color: #fff;
+  width: 96%;
+  margin: 0 auto;
+}
+
+.filter-container {
+  display: flex;
+  align-items: center;
+}
+
+.filter-button {
+  background-color: #1e2021; /* Example color for the filter button */
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.buttons-container {
+  display: flex;
+}
+
+.navbar button {
+  margin-left: 10px;
+}
+
+
+
+.clear-filter-button {
+  background-color: #ff0000;
+  color: #ffffff;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.clear-filter-button:hover {
+  background-color: #cc0000;
+}
+
+
+.blur-background {
+  filter: blur(3px);
+}
+
+.pagination{
+  text-align: center;
+}
+
+.pagination a{
+  text-decoration: none;
+}
+
+
+.previous-button {
+  background-color: #3498db; /* Set your background color */
+  color: #fff; /* Set your text color */
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.previous-button:hover {
+  background-color: #2980b9; /* Set your hover background color */
+}
+
+.previous-button:disabled {
+  background-color: #d5d2d2; /* Set your disabled background color */
+  color: #a1a1a1; /* Set your disabled text color */
+  cursor: not-allowed;
+}
+
+
+.next-button {
+  background-color: #619533; /* Set your background color */
+  color: #fff; /* Set your text color */
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.next-button:hover {
+  background-color: #2980b9; /* Set your hover background color */
+}
+
+.next-button:disabled {
+  background-color: #e7e2e2; /* Set your disabled background color */
+  color: #a1a1a1; /* Set your disabled text color */
+  cursor: not-allowed;
+}
+
+.page-button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.page-button.btn-light {
+  background-color: #999a93; /* Set your light button background color */
+  color: #333; /* Set your light button text color */
+}
+
+.page-button.btn-success {
+  background-color: #3e6046; /* Set your success button background color */
+  color: #fff; /* Set your success button text color */
+}
+
+.page-button:disabled {
+  background-color: #3e6046; /* Set your disabled button background color */
+  color: #a1a1a1; /* Set your disabled button text color */
+  cursor: not-allowed;
+}
+.send-message-button {
+  background-color: #40668e;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.send-message-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed; 
+}

@@ -1,0 +1,92 @@
+/* Style for the message list table */
+.message-list {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Style for table headers */
+.message-list th {
+  background-color: #f2f2f2;
+  text-align: center;
+  padding: 8px;
+}
+
+/* Style for table cells */
+.message-list td {
+  border-bottom: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+/* Alternate row color */
+.message-list tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Hover effect */
+.message-list tr:hover {
+  background-color: #ddd;
+}
+
+/* Style for message sender and receiver columns */
+.message-list .sender, .message-list .receiver {
+  font-weight: bold;
+}
+
+/* Style for timestamp column */
+.message-list .timestamp {
+  font-style: italic;
+}
+/* Style for the "See Message" button */
+.see-message-btn {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* Style for the "See Message" button on hover */
+.see-message-btn:hover {
+  background-color: #45a049;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+
+button {
+  padding: 8px 16px;
+  background-color: #4d6783; /* Default Bootstrap primary color */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3; /* Darker shade of primary color on hover */
+}
+
+button[disabled] {
+  background-color: #ced4da; /* Default Bootstrap disabled button color */
+  cursor: not-allowed;
+}
+
+.previous-button {
+  margin-right: 8px;
+}
+
+.next-button {
+  margin-left: 8px;
+}
+

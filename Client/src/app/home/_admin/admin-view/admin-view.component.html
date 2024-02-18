@@ -1,0 +1,26 @@
+<app-home-nav></app-home-nav>
+
+<div style="overflow-x: auto">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th style="text-align: center">Username</th>
+        <th style="text-align: center">Name</th>
+        <th style="text-align: center">Gender</th>
+        <th style="text-align: center">Blood Group</th>
+        <th style="text-align: center">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let admin of AdminList">
+        <td>{{ admin.username }}</td>
+        <td>{{ admin.name }}</td>
+        <td>{{ admin.gender }}</td>
+        <td>{{ admin.blood_group }}</td>
+        <td>
+          <button class="send-message-button" (click)="sendMessage(admin.username)" [disabled]="admin.username == currentUser">Send Message</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
