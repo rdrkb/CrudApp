@@ -26,7 +26,7 @@ export class MessageComponent implements OnInit, OnDestroy {
   socketSubscription!: Subscription;
 
   currentPage: number = 1;
-  listPerPage: number = 10;
+  messagePerPage: number = 7;
   totalMessage: number = 0;
   totalPage: number = 0;
 
@@ -46,6 +46,12 @@ export class MessageComponent implements OnInit, OnDestroy {
     this.socketSubscription = this.messageService.connect('wss://localhost:7173/ws').subscribe(
       (message: any) => {
         this.messages.push(message);
+        if(this.currentPage > 1 || this.messages.length > this.messagePerPage) {
+          this.onPageChange(1);
+        }
+        else if (this.messages.length > this.messagePerPage) {
+          this.messages.shift();
+        }
       },
       (error: any) => {
         console.error('Error in WebSocket connection:', error);
@@ -61,11 +67,9 @@ export class MessageComponent implements OnInit, OnDestroy {
     this.messageService.getNumberOfMessage(this.currentUser.username, this.receiver).subscribe({
       next: totalList => {
         this.totalMessage = totalList;
-        this.totalPage = Math.floor((this.totalMessage + this.listPerPage - 1) / this.listPerPage);
+        this.totalPage = Math.floor((this.totalMessage + this.messagePerPage - 1) / this.messagePerPage);
 
-        console.log(this.totalPage);
-
-        this.messageService.getMessages(this.currentUser.username, this.receiver, this.currentPage, this.listPerPage)
+        this.messageService.getMessages(this.currentUser.username, this.receiver, this.currentPage, this.messagePerPage)
           .subscribe({
             next: (data) => {
               this.messages = data;

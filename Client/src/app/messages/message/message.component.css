@@ -21,28 +21,6 @@
   width: 100%;
 }
 
-/* Message Row */
-.message-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-/* Received Message */
-.received-message {
-  background-color: #e0e0e0;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-/* Sent Message */
-.sent-message {
-  background-color: #0084ff;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-}
-
 /* Message Input */
 .message-input {
   margin-top: 20px;
@@ -73,30 +51,7 @@
 .send-button:hover {
   background-color: #0056b3;
 }
-/* Message Column */
-.message-column {
-  display: flex;
-  flex-direction: column;
-}
 
-/* Received Message */
-.received-message {
-  align-self: flex-start;
-  background-color: #b69898;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 10px;
-}
-
-/* Sent Message */
-.sent-message {
-  align-self: flex-end;
-  background-color: #4d5c69;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 10px;
-}
 
 .pagination {
   display: flex; /* Use flexbox */
@@ -104,8 +59,8 @@
 }
 
 .pagination .more-btn {
-  background-color: #bac5d0;
-  color: #fff;
+  background-color: #16221c;
+  color: #208955;
   padding: 8px 16px;
   border: none;
   border-radius: 4px;
@@ -116,3 +71,31 @@
 .pagination .more-btn:hover {
   background-color: #0056b3;
 }
+
+
+.message-row {
+  display: flex;
+}
+
+.msg-container {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.message {
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.received {
+  background-color: #eaeaea; /* Background color for received messages */
+  align-self: flex-start;
+}
+
+.sent {
+  background-color: #4CAF50; /* Background color for sent messages */
+  align-self: flex-end;
+}
+

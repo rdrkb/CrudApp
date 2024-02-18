@@ -5,9 +5,9 @@
     <p style="padding-left: 10px">Chatting with {{receiver | titlecase}}</p>
   </div>
   <div class="pagination">
-    <ng-container *ngIf="totalPage !== 0">
+    <ng-container *ngIf="currentPage < totalPage">
       <div class="pagination">
-        <button class="more-btn" (click)="onPageChange(currentPage + 1)">See more..</button>
+        <button class="more-btn" (click)="onPageChange(currentPage + 1)">See older..</button>
       </div>
     </ng-container>
   </div>
@@ -17,23 +17,29 @@
 
       </thead>
       <tbody>
-      <tr *ngFor="let message of messages" class="message-row">
-        <td>
-          <div class="message-column received-message" *ngIf="receiver == message.sender">
-            {{message.content}}
-          </div>
-
-          <div class="message-column sent-message" *ngIf="currentUser.username == message.sender">
-            {{message.content}}
-          </div>
-        </td>
-      </tr>
+        <tr *ngFor="let message of messages" class="message-row">
+          <td style="width: 500px;">
+            <div class="msg-container">
+              <div class="message" [ngClass]="{'sent': currentUser.username == message.sender, 'received': receiver == message.sender}">
+                {{ message.content }}
+              </div>
+            </div>
+          </td>
+        </tr>
+        
       </tbody>
 
     </table>
   </div>
+  <div class="pagination">
+    <ng-container *ngIf="currentPage > 1">
+      <div class="pagination">
+        <button class="more-btn" (click)="onPageChange(currentPage - 1)">See newer..</button>
+      </div>
+    </ng-container>
+  </div>
   <div class="message-input">
-    <input type="text" [(ngModel)]="newMessage" placeholder="Type your message here..." class="message-textbox">
+    <input type="text" [(ngModel)]="newMessage" placeholder="Type your message here..." class="message-textbox" (keydown.enter)="OnClick()">
     <button class="send-button" (click)="OnClick()">Send</button>
   </div>
 </div>
