@@ -79,8 +79,8 @@ export class MessageService {
       })
     );
   }
-  getMessages(sender: string, receiver: string): Observable<any>{
-    const url = `${this.apiUrl}/getmessages/${sender}/${receiver}`;
+  getMessages(sender: string, receiver: string, pageNumber: number, itemPerPage: number): Observable<any>{
+    const url = `${this.apiUrl}/getmessages/${sender}/${receiver}?pageNumber=${pageNumber}&itemPerPage=${itemPerPage}`;
     const token = localStorage.getItem('token');
 
     const headers = new HttpHeaders({
@@ -88,6 +88,21 @@ export class MessageService {
     });
 
     return this.http.get<any>(url, {headers});
+  }
+  getNumberOfMessage(sender: string, receiver: string): Observable<number>
+  {
+    const url = `${this.apiUrl}/totalNumberOfMessage/${sender}/${receiver}`;
+
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get<number>(url, { headers }).pipe(
+      map(totalList => {
+        return totalList;
+      })
+    );
   }
   sendMessage(content: any): Observable<any>{
     const url = `${this.apiUrl}/send`;

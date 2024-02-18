@@ -26,8 +26,8 @@ export class MessageComponent implements OnInit, OnDestroy {
   socketSubscription!: Subscription;
 
   currentPage: number = 1;
-  listPerPage: number = 2;
-  totalList: number = 0;
+  listPerPage: number = 10;
+  totalMessage: number = 0;
   totalPage: number = 0;
 
   constructor(private messageService: MessageService, private accountService: AccountService, private route: ActivatedRoute) {}
@@ -36,17 +36,11 @@ export class MessageComponent implements OnInit, OnDestroy {
     this.route.params.subscribe(params => {
       this.receiver = params['username'];
     });
-
     this.currentUser = this.accountService.getCurrentUser();
-    this.messageService.getMessages(this.currentUser.username, this.receiver)
-      .subscribe({
-        next: (data) => {
-          this.messages = data;
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
+
+    this.refreshList();
+
+
 
     // Store the subscription
     this.socketSubscription = this.messageService.connect('wss://localhost:7173/ws').subscribe(
@@ -62,6 +56,30 @@ export class MessageComponent implements OnInit, OnDestroy {
     );
   }
 
+  refreshList()
+  {
+    this.messageService.getNumberOfMessage(this.currentUser.username, this.receiver).subscribe({
+      next: totalList => {
+        this.totalMessage = totalList;
+        this.totalPage = Math.floor((this.totalMessage + this.listPerPage - 1) / this.listPerPage);
+
+        console.log(this.totalPage);
+
+        this.messageService.getMessages(this.currentUser.username, this.receiver, this.currentPage, this.listPerPage)
+          .subscribe({
+            next: (data) => {
+              this.messages = data;
+            },
+            error: (err) => {
+              console.log(err);
+            },
+          });
+      },
+      error: err => {
+        console.log(err);
+      }
+    });
+  }
   ngOnDestroy() {
     // Unsubscribe from the WebSocket connection when the component is destroyed
     if (this.socketSubscription) {
@@ -84,8 +102,8 @@ export class MessageComponent implements OnInit, OnDestroy {
       this.newMessage = '';
     }
   }
-  onPageChange(pageNumber: number)
-  {
-
+  onPageChange(pageNumber: number): void {
+    this.currentPage = pageNumber;
+    this.refreshList();
   }
 }
