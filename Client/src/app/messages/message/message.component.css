@@ -6,6 +6,7 @@
   padding: 20px;
   width: 40%;
   margin: auto;
+  max-width: inherit;
 }
 
 /* Receiver Name */
@@ -24,18 +25,26 @@
 
 /* Message Input */
 .message-input {
-  margin-top: 20px;
+  margin: 20px 10px;
   display: flex;
+  width: 100%;
 }
 
 /* Message Textbox */
 .message-textbox {
   flex: 1;
-  padding: 10px;
+  padding: 8px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  resize: inherit;
+  overflow: auto;
+ }
+
+.message-textbox::-webkit-scrollbar {
+  display: none;
 }
+
 
 /* Send Button */
 .send-button {

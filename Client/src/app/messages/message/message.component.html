@@ -11,8 +11,8 @@
       </div>
     </ng-container>
   </div>
-  <div class="message-table">
-    <table style="width: 100%">
+  <div>
+    <table class="message-table">
       <thead>
 
       </thead>
@@ -26,20 +26,18 @@
             </div>
           </td>
         </tr>
-
       </tbody>
-
     </table>
-  </div>
-  <div class="pagination">
-    <ng-container *ngIf="currentPage > 1">
-      <div class="pagination">
-        <button class="more-btn" (click)="onPageChange(currentPage - 1)">See newer..</button>
-      </div>
-    </ng-container>
-  </div>
-  <div class="message-input">
-    <input type="text" [(ngModel)]="newMessage" placeholder="Type your message here..." class="message-textbox" (keydown.enter)="OnClick()">
-    <button class="send-button" (click)="OnClick()">Send</button>
+    <div class="pagination">
+      <ng-container *ngIf="currentPage > 1">
+        <div class="pagination">
+          <button class="more-btn" (click)="onPageChange(currentPage - 1)">See newer..</button>
+        </div>
+      </ng-container>
+    </div>
+    <div class="message-input">
+      <textarea [(ngModel)]="newMessage" placeholder="Type your message here..." class="message-textbox" (keydown.enter)="OnClick()"></textarea>
+      <button class="send-button" (click)="OnClick()">Send</button>
+    </div>
   </div>
 </div>
