@@ -1,62 +1,44 @@
-﻿using A.Contracts.DTOs;
+﻿
+using A.Contracts.DTOs;
 using C.Business.TokenServices;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
 using System.Collections.Concurrent;
 using System.Net.WebSockets;
 using System.Text;
 
-namespace D.Application.Controllers
+namespace D.Application.Websocket
 {
-    public class WebSocketController : ControllerBase
+    public class WebSocketHandler : IWebSocketHandler
     {
         private static ConcurrentDictionary<string, WebSocket> _clients = new ConcurrentDictionary<string, WebSocket>();
 
-        private readonly ILogger<WebSocketController> _logger;
         private readonly ITokenService _tokenService;
 
-        public WebSocketController(ILogger<WebSocketController> logger, ITokenService tokenService)
+        public WebSocketHandler(ITokenService tokenService)
         {
-            _logger = logger;
             _tokenService = tokenService;
         }
 
-        private void LogClientsInformation()
+        public async Task HandleWebSocket(HttpContext context)
         {
-            _logger.LogInformation("Clients information:");
-            foreach (var client in _clients)
+            if (context.WebSockets.IsWebSocketRequest)
             {
-                _logger.LogInformation($"ClientId: {client.Key}, WebSocket: {client.Value}");
-            }
-        }
+                var webSocket = await context.WebSockets.AcceptWebSocketAsync();
 
-        [Route("/ws")]
-        [HttpGet]
-        public async Task Get()
-        {
-            if (HttpContext.WebSockets.IsWebSocketRequest)
-            {
-                var webSocket = await HttpContext.WebSockets.AcceptWebSocketAsync();
-
-                var token = HttpContext.Request.Query["token"];
-
+                var token = context.Request.Query["token"];
 
                 var username = _tokenService.GetUsernameFromToken(token);
 
-                //Console.WriteLine($"WebSocket connection established for username: {username}");
+                _clients.TryAdd(username, webSocket);
 
-                _clients.TryAdd(username, webSocket); // Add the new client to the dictionary
+                await Receive(webSocket);
 
-                //LogClientsInformation();
-                
-                await Receive(webSocket); // Start listening for messages from this client
-
-                _clients.TryRemove(username, out _); // Remove the client when the connection is closed
+                _clients.TryRemove(username, out _); 
             }
             else
             {
-                HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
+                context.Response.StatusCode = 400;
             }
         }
         private async Task Receive(WebSocket webSocket)
@@ -117,7 +99,6 @@ namespace D.Application.Controllers
                 await senderWebSocket.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Text, true, CancellationToken.None);
             }
 
-            // Add handling for offline or invalid receiver scenarios if needed
         }
     }
 }

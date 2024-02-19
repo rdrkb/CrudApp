@@ -21,8 +21,4 @@
     <ProjectReference Include="..\C.Business\C.Business.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Middleware\" />
-  </ItemGroup>
-
 </Project>

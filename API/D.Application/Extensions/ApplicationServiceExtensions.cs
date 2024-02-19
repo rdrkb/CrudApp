@@ -11,6 +11,7 @@ using C.Business.MessageLogic;
 using C.Business.StudentLogic;
 using C.Business.TeacherLogic;
 using C.Business.TokenServices;
+using D.Application.Websocket;
 using MassTransit;
 using MongoDB.Driver;
 using StackExchange.Redis;
@@ -80,6 +81,9 @@ namespace D.Application.Extensions
 
             // Token Service
             services.AddSingleton<ITokenService, TokenService>();
+
+            // WebSocket middleware
+            services.AddSingleton<IWebSocketHandler, WebSocketHandler>();
         }
     }
 }

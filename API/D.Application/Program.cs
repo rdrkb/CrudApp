@@ -1,4 +1,5 @@
 using D.Application.Extensions;
+using D.Application.Middleware;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,6 +31,10 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 app.UseWebSockets();
+app.Map("/ws", builder =>
+{
+    builder.UseMiddleware<WebSocketMiddleware>();
+});
 
 
 // Configure the HTTP request pipeline.
