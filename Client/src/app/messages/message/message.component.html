@@ -12,13 +12,13 @@
     </ng-container>
   </div>
   <div class="message-table">
-    <table>
+    <table style="width: 100%">
       <thead>
 
       </thead>
       <tbody>
         <tr *ngFor="let message of messages" class="message-row">
-          <td style="width: 500px;">
+          <td style="width: 90%; margin: auto">
             <div class="msg-container">
               <div class="message" [ngClass]="{'sent': currentUser.username == message.sender, 'received': receiver == message.sender}">
                 {{ message.content }}
@@ -26,7 +26,7 @@
             </div>
           </td>
         </tr>
-        
+
       </tbody>
 
     </table>

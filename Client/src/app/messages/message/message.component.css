@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   padding: 20px;
-  width: 60%;
+  width: 40%;
   margin: auto;
 }
 
@@ -19,6 +19,7 @@
 /* Message Table */
 .message-table {
   width: 100%;
+  margin: auto;
 }
 
 /* Message Input */
@@ -75,12 +76,12 @@
 
 .message-row {
   display: flex;
+  margin: auto;
 }
 
 .msg-container {
   display: flex;
   flex-direction: column;
-  margin: auto;
 }
 
 .message {
@@ -98,4 +99,5 @@
   background-color: #4CAF50; /* Background color for sent messages */
   align-self: flex-end;
 }
+
 
