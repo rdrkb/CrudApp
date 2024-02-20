@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class MessageService {
 
   private socket!: WebSocket;
 
-  private apiUrl = 'https://localhost:7173/api/Message';
+  private apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) { }
 
   connect(url: string): Observable<any> {
@@ -56,7 +57,7 @@ export class MessageService {
 
   getMessageList(username: string, pageNumber: number, itemPerPage: number): Observable<any>
   {
-    const url = `${this.apiUrl}/getlists/${username}?pageNumber=${pageNumber}&itemPerPage=${itemPerPage}`;
+    const url = `${this.apiUrl}Message/getlists/${username}?pageNumber=${pageNumber}&itemPerPage=${itemPerPage}`;
     const token = localStorage.getItem('token');
 
     const headers = new HttpHeaders({
@@ -66,7 +67,7 @@ export class MessageService {
   }
   getNumberOfMessageList(username: string): Observable<number>
   {
-    const url = `${this.apiUrl}/totalNumberOfList/${username}`;
+    const url = `${this.apiUrl}Message/totalNumberOfList/${username}`;
 
     const token = localStorage.getItem('token');
 
@@ -80,7 +81,7 @@ export class MessageService {
     );
   }
   getMessages(sender: string, receiver: string, pageNumber: number, itemPerPage: number): Observable<any>{
-    const url = `${this.apiUrl}/getmessages/${sender}/${receiver}?pageNumber=${pageNumber}&itemPerPage=${itemPerPage}`;
+    const url = `${this.apiUrl}Message/getmessages/${sender}/${receiver}?pageNumber=${pageNumber}&itemPerPage=${itemPerPage}`;
     const token = localStorage.getItem('token');
 
     const headers = new HttpHeaders({
@@ -91,7 +92,7 @@ export class MessageService {
   }
   getNumberOfMessage(sender: string, receiver: string): Observable<number>
   {
-    const url = `${this.apiUrl}/totalNumberOfMessage/${sender}/${receiver}`;
+    const url = `${this.apiUrl}Message/totalNumberOfMessage/${sender}/${receiver}`;
 
     const token = localStorage.getItem('token');
 
@@ -105,7 +106,7 @@ export class MessageService {
     );
   }
   sendMessage(content: any): Observable<any>{
-    const url = `${this.apiUrl}/send`;
+    const url = `${this.apiUrl}Message/send`;
     const token = localStorage.getItem('token');
 
     const headers = new HttpHeaders({

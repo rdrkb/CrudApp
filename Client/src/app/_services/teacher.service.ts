@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import { Observable } from "rxjs";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TeacherService {
-  private apiUrl = 'https://localhost:7173/api/Teacher';
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
   totalTeachers(pageNumber: number, pageSize: number, university: string, department: string):Observable<number>{
-    const url = `${this.apiUrl}/totalteachers?pageNumber=${pageNumber}&pageSize=${pageSize}&university=${university}&department=${department}`;
+    const url = `${this.apiUrl}Teacher/totalteachers?pageNumber=${pageNumber}&pageSize=${pageSize}&university=${university}&department=${department}`;
 
     const token = localStorage.getItem('token');
 
@@ -22,7 +23,7 @@ export class TeacherService {
     return this.http.get<number>(url, { headers });
   }
   getTeachers(pageNumber: number, pageSize: number, university: string, department: string): Observable<any> {
-    const url = `${this.apiUrl}/getteachers?pageNumber=${pageNumber}&pageSize=${pageSize}&university=${university}&department=${department}`;
+    const url = `${this.apiUrl}Teacher/getteachers?pageNumber=${pageNumber}&pageSize=${pageSize}&university=${university}&department=${department}`;
     const token = localStorage.getItem('token');
 
     const headers = new HttpHeaders({
@@ -33,7 +34,7 @@ export class TeacherService {
   }
 
   getTeacher(username: string): Observable<any>{
-    const url = `${this.apiUrl}/getteacher/${username}`;
+    const url = `${this.apiUrl}Teacher/getteacher/${username}`;
 
     const token = localStorage.getItem('token');
 
@@ -49,10 +50,10 @@ export class TeacherService {
       'Authorization': `Bearer ${token}`
     });
 
-    return this.http.post<any>(`${this.apiUrl}/create`, teacherData, { headers });
+    return this.http.post<any>(`${this.apiUrl}Teacher/create`, teacherData, { headers });
   }
   updateTeacher(username: string, teacherData: any): Observable<any> {
-    const url = `${this.apiUrl}/update/${username}`;
+    const url = `${this.apiUrl}Teacher/update/${username}`;
 
     const token = localStorage.getItem('token');
 

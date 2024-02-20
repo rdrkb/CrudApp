@@ -99,7 +99,7 @@ export class MessageComponent implements OnInit, OnDestroy {
       this.messageService.sendMessageToWS(this.Content);
       this.messageService.sendMessage(this.Content).subscribe({
         next: response => {
-          console.log(response);
+          //console.log(response);
         }
       });
       this.newMessage = '';
