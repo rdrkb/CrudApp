@@ -92,17 +92,16 @@ export class MessageComponent implements OnInit, OnDestroy {
   }
 
   OnClick() {
-    if (this.newMessage != '') {
+    if (this.newMessage.trim() !== '') {
       this.Content.sender = this.currentUser.username;
       this.Content.receiver = this.receiver;
       this.Content.content = this.newMessage;
       this.messageService.sendMessageToWS(this.Content);
       this.messageService.sendMessage(this.Content).subscribe({
         next: response => {
-          //console.log(response);
+          console.log(response);
         }
       });
-
       this.newMessage = '';
     }
   }

@@ -35,9 +35,10 @@
         </div>
       </ng-container>
     </div>
-    <div class="message-input">
-      <textarea [(ngModel)]="newMessage" placeholder="Type your message here..." class="message-textbox" (keydown.enter)="OnClick()"></textarea>
-      <button class="send-button" (click)="OnClick()">Send</button>
-    </div>
+    <form #messageForm = "ngForm" class="message-input" (submit)="OnClick()">
+      <input name="newMessage"  [(ngModel)]="newMessage" type="text" placeholder="Type your message here..." class="message-textbox">
+      <button [disabled]="!messageForm.valid" type="submit" class="send-button">Send</button>
+    </form>
+
   </div>
 </div>
