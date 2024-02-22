@@ -1,5 +1,6 @@
 using D.Application.Extensions;
 using D.Application.Middleware;
+using ThirdParty.BouncyCastle.Asn1;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -44,12 +45,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
+
+
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
+app.UseDefaultFiles();
+app.UseStaticFiles();
 
 app.MapControllers();
 

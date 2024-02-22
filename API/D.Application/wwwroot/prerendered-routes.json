@@ -1,0 +1,15 @@
+{
+  "routes": [
+    "/",
+    "/adminEdit",
+    "/adminHome",
+    "/adminView",
+    "/chatList",
+    "/studentEdit",
+    "/studentHome",
+    "/studentView",
+    "/teacherEdit",
+    "/teacherHome",
+    "/teacherView"
+  ]
+}
