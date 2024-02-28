@@ -1,5 +1,5 @@
 ﻿using A.Contracts.DTOs;
-using C.Business.AccountLogic;
+using C.Business.Accounts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace D.Application.Controllers
@@ -8,9 +8,9 @@ namespace D.Application.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly IAccountLogic _accountLogic;
+        private readonly IAccountService _accountLogic;
 
-        public AccountController(IAccountLogic accountLogic)
+        public AccountController(IAccountService accountLogic)
         {
             _accountLogic = accountLogic;
         }

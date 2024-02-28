@@ -1,6 +1,6 @@
 ﻿using A.Contracts.DTOs;
 using A.Contracts.Models;
-using C.Business.MessageLogic;
+using C.Business.Messages;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,9 +11,9 @@ namespace D.Application.Controllers
     [ApiController]
     public class MessageController : ControllerBase
     {
-        private readonly IMessageLogic _messageLogic;
+        private readonly IMessageService _messageLogic;
 
-        public MessageController(IMessageLogic messageLogic)
+        public MessageController(IMessageService messageLogic)
         {
             _messageLogic = messageLogic;
         }

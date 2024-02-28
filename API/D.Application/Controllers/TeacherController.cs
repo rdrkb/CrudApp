@@ -1,6 +1,6 @@
 ﻿using A.Contracts.Models;
 using A.Contracts.Update_Models;
-using C.Business.TeacherLogic;
+using C.Business.Teachers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -12,9 +12,9 @@ namespace D.Application.Controllers
     [ApiController]
     public class TeacherController : ControllerBase
     {
-        private readonly ITeacherLogic _teacherLogic;
+        private readonly ITeacherService _teacherLogic;
 
-        public TeacherController(ITeacherLogic teacherLogic)
+        public TeacherController(ITeacherService teacherLogic)
         {
             _teacherLogic = teacherLogic;
         }

@@ -11,11 +11,11 @@ namespace B.Database.RedisCache
         public RedisCache(IConfiguration configuration)
         {
             // Configure Redis
-            var redis = ConnectionMultiplexer.Connect("localhost:6379");
+            var redis = ConnectionMultiplexer.Connect(configuration["RedisConfig:ConnectionString"]!);
             _redisDatabase = redis.GetDatabase();
         }
 
-        public async Task<T> GetData<T>(string key)
+        public async Task<T?> GetData<T>(string key)
         {
             var value = await _redisDatabase.StringGetAsync(key);
             if (!string.IsNullOrEmpty(value))

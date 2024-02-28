@@ -1,8 +1,8 @@
-﻿using A.Contracts.Update_Models;
+﻿using A.Contracts;
+using A.Contracts.Update_Models;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using ProducerApi.Models;
 
 namespace ProducerApi.Controllers
 {

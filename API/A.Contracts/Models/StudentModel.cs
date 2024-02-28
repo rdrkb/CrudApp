@@ -1,7 +1,4 @@
-﻿
-
-using A.Contracts.Update_Models;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson.Serialization.Attributes;
 
 namespace A.Contracts.Models
 {

@@ -1,8 +1,7 @@
 ﻿using A.Contracts.Models;
 using A.Contracts.Update_Models;
-using C.Business.AdminLogic;
+using C.Business.Admins;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,9 +12,9 @@ namespace D.Application.Controllers
     [ApiController]
     public class AdminController : ControllerBase
     {
-        private readonly IAdminLogic _adminLogic;
+        private readonly IAdminService _adminLogic;
 
-        public AdminController(IAdminLogic adminLogic)
+        public AdminController(IAdminService adminLogic)
         {
             _adminLogic = adminLogic;
         }

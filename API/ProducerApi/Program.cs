@@ -9,10 +9,10 @@ builder.Services.AddMassTransit(config =>
 {
     config.UsingRabbitMq((context, cfg) =>
     {
-        cfg.Host("localhost", h =>
+        cfg.Host(builder.Configuration["RabbitMqConfig:HostName"], h =>
         {
-            h.Username("guest");
-            h.Password("guest");
+            h.Username(builder.Configuration["RabbitMqConfig:UserName"]);
+            h.Password(builder.Configuration["RabbitMqConfig:Password"]);
         });
         /*cfg.ConfigureEndpoints(context);
         cfg.ReceiveEndpoint("lol", e =>

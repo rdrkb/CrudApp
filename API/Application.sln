@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B.Database", "B.Database\B.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "C.Business", "C.Business\C.Business.csproj", "{399B8A8D-27C2-40CB-A0A3-E6CAE9C76224}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProducerApi", "ProducerApi\ProducerApi.csproj", "{09AF43CA-8150-4853-81C2-2F9DF52DBB46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationApi", "ProducerApi\NotificationApi.csproj", "{09AF43CA-8150-4853-81C2-2F9DF52DBB46}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

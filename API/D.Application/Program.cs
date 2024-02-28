@@ -1,6 +1,5 @@
 using D.Application.Extensions;
 using D.Application.Middleware;
-using ThirdParty.BouncyCastle.Asn1;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,13 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 // MongoDB configuration
-builder.Services.AddMongoDB();
-
-// Redis configuration
-builder.Services.AddRedisCache();
+builder.AddMongoDB();
 
 // RabbitMQ configuration
-builder.Services.AddRabbitMQ();
+builder.AddRabbitMQ();
 
 builder.Services.AddCustomServices();
 

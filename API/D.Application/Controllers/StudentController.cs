@@ -1,6 +1,6 @@
 ﻿using A.Contracts.Models;
 using A.Contracts.Update_Models;
-using C.Business.StudentLogic;
+using C.Business.Students;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -13,9 +13,9 @@ namespace D.Application.Controllers
     [ApiController]
     public class StudentController : ControllerBase
     {
-        private readonly IStudentLogic _studentLogic;
+        private readonly IStudentService _studentLogic;
 
-        public StudentController(IStudentLogic studentLogic)
+        public StudentController(IStudentService studentLogic)
         {
             _studentLogic = studentLogic;
         }
