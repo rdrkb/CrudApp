@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
-namespace D.Application.Controllers
+namespace D.SchoolManagementApi.Controllers
 {
     [Authorize(Roles = "admin")]
     [Route("api/[controller]")]
@@ -62,7 +62,7 @@ namespace D.Application.Controllers
                 adminModel = await _adminLogic.GetAdmin(username);
                 return Ok(adminModel);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return StatusCode(500, new { ErrorMessage = e.Message });
             }

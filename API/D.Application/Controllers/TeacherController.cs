@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
-namespace D.Application.Controllers
+namespace D.SchoolManagementApi.Controllers
 {
     [Authorize(Roles = "admin,teacher")]
     [Route("api/[controller]")]

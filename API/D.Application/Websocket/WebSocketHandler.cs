@@ -7,7 +7,7 @@ using System.Net.WebSockets;
 using System.Text;
 using C.Business.Security;
 
-namespace D.Application.Websocket
+namespace D.SchoolManagementApi.Websocket
 {
     public class WebSocketHandler : IWebSocketHandler
     {
@@ -34,7 +34,7 @@ namespace D.Application.Websocket
 
                 await Receive(webSocket);
 
-                _clients.TryRemove(username, out _); 
+                _clients.TryRemove(username, out _);
             }
             else
             {

@@ -1,5 +1,5 @@
-using D.Application.Extensions;
-using D.Application.Middleware;
+using D.SchoolManagementApi.Extensions;
+using D.SchoolManagementApi.Middleware;
 
 
 var builder = WebApplication.CreateBuilder(args);

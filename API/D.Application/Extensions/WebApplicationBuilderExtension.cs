@@ -12,19 +12,19 @@ using C.Business.Security;
 using C.Business.Students;
 using C.Business.Students.Consumers;
 using C.Business.Teachers;
-using D.Application.Websocket;
+using D.SchoolManagementApi.Websocket;
 using MassTransit;
 using MongoDB.Driver;
 using StackExchange.Redis;
 
-namespace D.Application.Extensions
+namespace D.SchoolManagementApi.Extensions
 {
     public static class WebApplicationBuilderExtension
     {
         public static void AddMongoDB(this WebApplicationBuilder builder)
         {
             var services = builder.Services;
-            
+
             services.AddSingleton<MongoClientFactory>();
         }
 

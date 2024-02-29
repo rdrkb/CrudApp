@@ -1,6 +1,6 @@
-﻿using D.Application.Websocket;
+﻿using D.SchoolManagementApi.Websocket;
 
-namespace D.Application.Middleware
+namespace D.SchoolManagementApi.Middleware
 {
     public class WebSocketMiddleware
     {

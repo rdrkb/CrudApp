@@ -4,7 +4,7 @@ using C.Business.Messages;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace D.Application.Controllers
+namespace D.SchoolManagementApi.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
@@ -21,7 +21,7 @@ namespace D.Application.Controllers
         [HttpPost("send")]
         public async Task<IActionResult> CreateMessage(MessageDto message)
         {
-            
+
             try
             {
                 await _messageLogic.CreateMessage(message);

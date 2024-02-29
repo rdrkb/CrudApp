@@ -1,4 +1,4 @@
-﻿namespace NotificationApi.Models
+﻿namespace Models
 {
     public class UserNotification
     {

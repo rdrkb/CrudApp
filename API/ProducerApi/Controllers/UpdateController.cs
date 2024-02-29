@@ -4,7 +4,7 @@ using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace ProducerApi.Controllers
+namespace Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -23,13 +23,13 @@ namespace ProducerApi.Controllers
             var messageData = JsonConvert.SerializeObject(new
             {
                 Username = username,
-                Name = student.Name,
-                University = student.University,
-                Student_id = student.Student_id,
-                Department = student.Department,
-                Gender = student.Gender,
-                Year_of_graduation = student.Year_of_graduation,
-                Blood_group = student.Blood_group
+                student.Name,
+                student.University,
+                student.Student_id,
+                student.Department,
+                student.Gender,
+                student.Year_of_graduation,
+                student.Blood_group
             });
 
 

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
-namespace D.Application.Controllers
+namespace D.SchoolManagementApi.Controllers
 {
 
     [Authorize(Roles = "admin,student")]
@@ -20,7 +20,7 @@ namespace D.Application.Controllers
             _studentLogic = studentLogic;
         }
 
-        
+
         [HttpPost("create")]
         public async Task<IActionResult> CreateNewStudent(StudentModel student)
         {
@@ -39,7 +39,7 @@ namespace D.Application.Controllers
             }
         }
 
-        
+
         [HttpGet("getstudents")]
         public async Task<IActionResult> GetStudents(int pageNumber = 1, int itemPerPage = 10, string university = "all", string department = "all")
         {

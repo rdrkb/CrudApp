@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace NotificationApi.Controllers
+namespace Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -11,7 +11,7 @@ namespace NotificationApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetMessages()
         {
-
+            return Ok();
         }
 
     }

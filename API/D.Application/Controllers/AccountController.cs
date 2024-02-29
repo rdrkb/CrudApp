@@ -1,18 +1,21 @@
 ﻿using A.Contracts.DTOs;
 using C.Business.Accounts;
+using C.Business.Accounts.Commands;
 using Microsoft.AspNetCore.Mvc;
 
-namespace D.Application.Controllers
+namespace D.SchoolManagementApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _accountLogic;
+        private readonly UserRegisterCommandConsumer _userRegisterCommandConsumer;
 
-        public AccountController(IAccountService accountLogic)
+        public AccountController(IAccountService accountLogic, UserRegisterCommandConsumer userRegisterCommandConsumer)
         {
             _accountLogic = accountLogic;
+            _userRegisterCommandConsumer = userRegisterCommandConsumer;
         }
 
         [HttpPost("register")]
@@ -20,12 +23,8 @@ namespace D.Application.Controllers
         {
             try
             {
-                if (await _accountLogic.UserExists(registerModel.Username))
-                {
-                    return BadRequest("Username is taken");
-                }
 
-                Token result = await _accountLogic.Register(registerModel);
+                Token result = await _userRegisterCommandConsumer.ExecuteAsync(new UserRegisterCommand(registerModel));
                 return Ok(new { Token = result.token });
             }
             catch (Exception ex)
@@ -44,7 +43,7 @@ namespace D.Application.Controllers
 
                 if (!string.IsNullOrEmpty(result.token))
                 {
-                    
+
                     return Ok(new { Token = result.token });
                 }
                 else
