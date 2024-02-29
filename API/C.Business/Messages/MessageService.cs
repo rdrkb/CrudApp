@@ -1,9 +1,7 @@
-﻿
+﻿using Contracts.DTOs;
+using Contracts.Models;
 
-using A.Contracts.DTOs;
-using A.Contracts.Models;
-
-namespace C.Business.Messages
+namespace Business.Messages
 {
     public class MessageService : IMessageService
     {

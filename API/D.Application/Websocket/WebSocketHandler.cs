@@ -1,13 +1,12 @@
-﻿
-using A.Contracts.DTOs;
-using Newtonsoft.Json.Serialization;
+﻿using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using System.Collections.Concurrent;
 using System.Net.WebSockets;
 using System.Text;
-using C.Business.Security;
+using Business.Security;
+using Contracts.DTOs;
 
-namespace D.SchoolManagementApi.Websocket
+namespace SchoolManagementApi.Websocket
 {
     public class WebSocketHandler : IWebSocketHandler
     {

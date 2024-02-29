@@ -1,4 +1,4 @@
-﻿namespace Events
+﻿namespace NotificationApi.Events
 {
     public class UserInfoUpdateEvent
     {

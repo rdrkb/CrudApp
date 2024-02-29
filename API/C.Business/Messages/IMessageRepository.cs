@@ -1,8 +1,7 @@
-﻿
-using A.Contracts.DTOs;
-using A.Contracts.Models;
+﻿using Contracts.DTOs;
+using Contracts.Models;
 
-namespace C.Business.Messages
+namespace Business.Messages
 {
     public interface IMessageRepository
     {

@@ -13,8 +13,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\A.Contracts\A.Contracts.csproj" />
-    <ProjectReference Include="..\C.Business\C.Business.csproj" />
+    <ProjectReference Include="..\A.Contracts\1.Contracts.csproj" />
+    <ProjectReference Include="..\C.Business\Business.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="MongoDB\AccountData\" />
+    <Folder Include="MongoDB\AdminData\" />
+    <Folder Include="MongoDB\MessagedData\" />
+    <Folder Include="MongoDB\StudentData\" />
+    <Folder Include="MongoDB\TeacherData\" />
   </ItemGroup>
 
 </Project>

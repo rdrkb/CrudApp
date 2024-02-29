@@ -1,9 +1,8 @@
-﻿
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using StackExchange.Redis;
 using System.Text.Json;
 
-namespace B.Database.RedisCache
+namespace Business.Redis
 {
     public class RedisCache : IRedisCache
     {

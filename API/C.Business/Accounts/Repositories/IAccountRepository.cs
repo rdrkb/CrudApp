@@ -1,9 +1,7 @@
-﻿
+﻿using Contracts.DTOs;
+using Contracts.Models;
 
-using A.Contracts.DTOs;
-using A.Contracts.Models;
-
-namespace C.Business.Accounts
+namespace Business.Accounts.Repositories
 {
     public interface IAccountRepository
     {

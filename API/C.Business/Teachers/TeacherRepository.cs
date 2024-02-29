@@ -1,13 +1,11 @@
-﻿
-
-using A.Contracts.Models;
-using A.Contracts.Update_Models;
-using C.Business.Teachers;
+﻿using A.Contracts.Update_Models;
+using Business;
+using Contracts.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 
-namespace B.Database.MongoDB.TeacherData
+namespace Business.Teachers
 {
     public class TeacherRepository : ITeacherRepository
     {

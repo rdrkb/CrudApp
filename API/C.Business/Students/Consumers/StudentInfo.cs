@@ -1,4 +1,4 @@
-﻿namespace C.Business.Students.Consumers
+﻿namespace Business.Students.Consumers
 {
     public class StudentInfo
     {

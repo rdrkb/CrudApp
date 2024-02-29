@@ -1,4 +1,4 @@
-﻿namespace D.SchoolManagementApi.Websocket
+﻿namespace SchoolManagementApi.Websocket
 {
     public interface IWebSocketHandler
     {

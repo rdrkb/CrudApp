@@ -1,10 +1,11 @@
-﻿using A.Contracts.DTOs;
-using A.Contracts.Models;
-using C.Business.Security;
+﻿using Business.Accounts.Repositories;
+using Business.Security;
+using Contracts.DTOs;
+using Contracts.Models;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace C.Business.Accounts
+namespace Business.Accounts.Services
 {
     public class AccountService : IAccountService
     {

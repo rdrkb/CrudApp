@@ -1,8 +1,6 @@
-﻿
+﻿using Contracts.DTOs;
 
-using A.Contracts.DTOs;
-
-namespace C.Business.Accounts
+namespace Business.Accounts.Services
 {
     public interface IAccountService
     {

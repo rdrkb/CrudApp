@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 
-namespace A.Contracts.Models
+namespace Contracts.Models
 {
     public class TeacherModel : BaseModel
     {

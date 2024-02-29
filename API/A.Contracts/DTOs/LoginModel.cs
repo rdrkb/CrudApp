@@ -1,8 +1,6 @@
-﻿
+﻿using System.ComponentModel.DataAnnotations;
 
-using System.ComponentModel.DataAnnotations;
-
-namespace A.Contracts.DTOs
+namespace Contracts.DTOs
 {
     public class LoginModel
     {

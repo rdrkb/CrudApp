@@ -1,13 +1,15 @@
-﻿using A.Contracts.DTOs;
+﻿using Amazon.Runtime.Internal;
+using Contracts.DTOs;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace C.Business.Accounts.Commands
+namespace Business.Accounts.Commands
 {
-    public class UserRegisterCommand
+    public class UserRegisterCommand : IRequest<Token>
     {
         public RegisterModel RegisterModel { get; set; }
 

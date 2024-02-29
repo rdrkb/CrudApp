@@ -1,8 +1,6 @@
-﻿
+﻿using Contracts.Models;
 
-using A.Contracts.Models;
-
-namespace C.Business.Security
+namespace Business.Security
 {
     public interface ITokenService
     {

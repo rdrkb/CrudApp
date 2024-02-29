@@ -1,24 +1,21 @@
-﻿using A.Contracts.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Business.Accounts.Services;
+using Contracts.DTOs;
+using MediatR;
 
-namespace C.Business.Accounts.Commands
+namespace Business.Accounts.Commands
 {
-    public class UserRegisterCommandConsumer 
+    public class UserRegisterCommandConsumer : IRequestHandler<UserRegisterCommand, Token>
     {
         private readonly IAccountService _accountService;
-        
+
         public UserRegisterCommandConsumer(IAccountService accountService)
         {
             _accountService = accountService;
         }
 
-        public async Task<Token> ExecuteAsync(UserRegisterCommand command)
+        public async Task<Token> Handle(UserRegisterCommand request, CancellationToken cancellationToken)
         {
-            var registerModel = command.RegisterModel;
+            var registerModel = request.RegisterModel;
 
             if (await _accountService.UserExists(registerModel.Username))
             {
@@ -36,10 +33,3 @@ namespace C.Business.Accounts.Commands
         }
     }
 }
-
-
-// mediator design pattern
-
-// mediator accept class, resolve the class handler. and handler execute 
-
-// class -> class handler

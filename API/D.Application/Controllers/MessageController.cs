@@ -1,10 +1,10 @@
-﻿using A.Contracts.DTOs;
-using A.Contracts.Models;
-using C.Business.Messages;
+﻿using Business.Messages;
+using Contracts.DTOs;
+using Contracts.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace D.SchoolManagementApi.Controllers
+namespace SchoolManagementApi.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]

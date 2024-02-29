@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="8.0.1" />
     <PackageReference Include="MongoDB.Driver" Version="2.23.1" />
@@ -16,9 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\A.Contracts\A.Contracts.csproj" />
-    <ProjectReference Include="..\B.Database\B.Database.csproj" />
-    <ProjectReference Include="..\C.Business\C.Business.csproj" />
+    <ProjectReference Include="..\A.Contracts\Contracts.csproj" />
+    <ProjectReference Include="..\C.Business\Business.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,11 +1,11 @@
-﻿using A.Contracts.Models;
+﻿using Contracts.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace C.Business.Security
+namespace Business.Security
 {
     public class TokenService : ITokenService
     {

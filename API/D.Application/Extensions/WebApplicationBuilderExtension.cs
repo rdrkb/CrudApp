@@ -1,47 +1,51 @@
-﻿using B.Database.MongoDB;
-using B.Database.MongoDB.AccountData;
-using B.Database.MongoDB.AdminData;
-using B.Database.MongoDB.MessagedData;
-using B.Database.MongoDB.StudentData;
-using B.Database.MongoDB.TeacherData;
-using B.Database.RedisCache;
-using C.Business.Accounts;
-using C.Business.Admins;
-using C.Business.Messages;
-using C.Business.Security;
-using C.Business.Students;
-using C.Business.Students.Consumers;
-using C.Business.Teachers;
-using D.SchoolManagementApi.Websocket;
+﻿using Business;
+using Business.Accounts.Repositories;
+using Business.Accounts.Services;
+using Business.Admins;
+using Business.Messages;
+using Business.Redis;
+using Business.Security;
+using Business.Students;
+using Business.Students.Consumers;
+using Business.Teachers;
 using MassTransit;
-using MongoDB.Driver;
-using StackExchange.Redis;
+using SchoolManagementApi.Websocket;
+using Business.Extensions;
 
-namespace D.SchoolManagementApi.Extensions
+namespace SchoolManagementApi.Extensions
 {
     public static class WebApplicationBuilderExtension
     {
-        public static void AddMongoDB(this WebApplicationBuilder builder)
+        public static void AddMongoDB(this IServiceCollection services)
         {
-            var services = builder.Services;
-
             services.AddSingleton<MongoClientFactory>();
         }
 
-        public static void AddRabbitMQ(this WebApplicationBuilder builder)
+        public static void AddMediatRService(this IServiceCollection services)
         {
-            var services = builder.Services;
+            services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
+            });
+
+            services.AddSchoolBusinesServices();
+        }
+
+        public static void AddRabbitMQ(this IServiceCollection services, IConfiguration configuration)
+        {
 
             services.AddMassTransit(config =>
             {
+                
                 config.UsingRabbitMq((context, cfg) =>
                 {
-                    cfg.Host(builder.Configuration["RabbitMqConfig:HostName"], h =>
+                    cfg.Host(configuration["RabbitMqConfig:HostName"], h =>
                     {
-                        h.Username(builder.Configuration["RabbitMqConfig:UserName"]);
-                        h.Password(builder.Configuration["RabbitMqConfig:Password"]);
+                        h.Username(configuration["RabbitMqConfig:UserName"]);
+                        h.Password(configuration["RabbitMqConfig:Password"]);
+                      
                     });
-
+                  
                     // Register the consumer
                     cfg.ReceiveEndpoint("my_queue", ep =>
                     {

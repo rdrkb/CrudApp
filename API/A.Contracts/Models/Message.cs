@@ -1,10 +1,8 @@
-﻿
-
-using A.Contracts.DTOs;
+﻿using Contracts.DTOs;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace A.Contracts.Models
+namespace Contracts.Models
 {
     public class Message : MessageDto
     {

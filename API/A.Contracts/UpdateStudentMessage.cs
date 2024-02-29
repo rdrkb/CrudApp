@@ -1,4 +1,4 @@
-﻿namespace A.Contracts
+﻿namespace Contracts
 {
     public class UpdateStudentMessage
     {

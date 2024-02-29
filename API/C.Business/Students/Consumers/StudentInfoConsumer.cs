@@ -1,10 +1,10 @@
 ﻿using MassTransit;
 using Newtonsoft.Json;
 using A.Contracts.Update_Models;
-using A.Contracts;
-using C.Business.Students;
+using Business.Students;
+using Contracts;
 
-namespace C.Business.Students.Consumers
+namespace Business.Students.Consumers
 {
     public class StudentInfoConsumer : IConsumer<UpdateStudentMessage>
     {

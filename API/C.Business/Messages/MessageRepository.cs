@@ -1,11 +1,10 @@
-﻿
-using A.Contracts.DTOs;
-using A.Contracts.Models;
-using C.Business.Messages;
+﻿using Business;
+using Contracts.DTOs;
+using Contracts.Models;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 
-namespace B.Database.MongoDB.MessagedData
+namespace Business.Messages
 {
     public class MessageRepository : IMessageRepository
     {
@@ -85,7 +84,7 @@ namespace B.Database.MongoDB.MessagedData
         public async Task<List<Message>> GetMessages(string sender, string receiver, int pageNumber, int itemPerPage)
         {
             int skipMessage = (pageNumber - 1) * itemPerPage;
-            var messages = await GetCollection().Find(msg => (msg.Sender == sender && msg.Receiver == receiver) || (msg.Sender == receiver && msg.Receiver == sender))
+            var messages = await GetCollection().Find(msg => msg.Sender == sender && msg.Receiver == receiver || msg.Sender == receiver && msg.Receiver == sender)
                 .SortByDescending(msg => msg.Created)
                 .Skip(skipMessage)
                 .Limit(itemPerPage)
@@ -98,7 +97,7 @@ namespace B.Database.MongoDB.MessagedData
 
         public async Task<long> GetNumberOfMessage(string sender, string receiver)
         {
-            return await GetCollection().Find(msg => (msg.Sender == sender && msg.Receiver == receiver) || (msg.Sender == receiver && msg.Receiver == sender))
+            return await GetCollection().Find(msg => msg.Sender == sender && msg.Receiver == receiver || msg.Sender == receiver && msg.Receiver == sender)
                 .CountDocumentsAsync();
         }
     }

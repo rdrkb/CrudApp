@@ -1,11 +1,11 @@
-﻿using A.Contracts.Models;
-using A.Contracts.Update_Models;
-using C.Business.Teachers;
+﻿using A.Contracts.Update_Models;
+using Business.Teachers;
+using Contracts.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
-namespace D.SchoolManagementApi.Controllers
+namespace SchoolManagementApi.Controllers
 {
     [Authorize(Roles = "admin,teacher")]
     [Route("api/[controller]")]

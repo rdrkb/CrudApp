@@ -1,21 +1,18 @@
-﻿using A.Contracts.DTOs;
-using C.Business.Accounts;
-using C.Business.Accounts.Commands;
+﻿using Business.Accounts.Commands;
+using Contracts.DTOs;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace D.SchoolManagementApi.Controllers
+namespace SchoolManagementApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly IAccountService _accountLogic;
-        private readonly UserRegisterCommandConsumer _userRegisterCommandConsumer;
-
-        public AccountController(IAccountService accountLogic, UserRegisterCommandConsumer userRegisterCommandConsumer)
+        private readonly IMediator _mediator;
+        public AccountController(IMediator mediator)
         {
-            _accountLogic = accountLogic;
-            _userRegisterCommandConsumer = userRegisterCommandConsumer;
+            _mediator = mediator;
         }
 
         [HttpPost("register")]
@@ -23,8 +20,7 @@ namespace D.SchoolManagementApi.Controllers
         {
             try
             {
-
-                Token result = await _userRegisterCommandConsumer.ExecuteAsync(new UserRegisterCommand(registerModel));
+                Token result = await _mediator.Send(new UserRegisterCommand(registerModel));
                 return Ok(new { Token = result.token });
             }
             catch (Exception ex)
@@ -39,7 +35,7 @@ namespace D.SchoolManagementApi.Controllers
         {
             try
             {
-                Token result = await _accountLogic.Login(loginModel);
+                Token result = await _mediator.Send(new UserLoginCommand(loginModel));
 
                 if (!string.IsNullOrEmpty(result.token))
                 {
@@ -62,7 +58,7 @@ namespace D.SchoolManagementApi.Controllers
         {
             try
             {
-                bool isDeleted = await _accountLogic.DeleteAccount(username);
+                bool isDeleted = await _mediator.Send(new UserDeleteCommand(username));
 
                 if (isDeleted)
                 {

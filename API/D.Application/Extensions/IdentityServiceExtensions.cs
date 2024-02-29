@@ -2,7 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace D.SchoolManagementApi.Extensions
+namespace SchoolManagementApi.Extensions
 {
     public static class IdentityServiceExtensions
     {

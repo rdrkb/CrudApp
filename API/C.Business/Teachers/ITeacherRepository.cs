@@ -1,10 +1,8 @@
-﻿
-
-using A.Contracts.Models;
-using A.Contracts.Update_Models;
+﻿using A.Contracts.Update_Models;
+using Contracts.Models;
 using Microsoft.AspNetCore.JsonPatch;
 
-namespace C.Business.Teachers
+namespace Business.Teachers
 {
     public interface ITeacherRepository
     {

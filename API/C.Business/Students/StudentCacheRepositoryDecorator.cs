@@ -1,7 +1,6 @@
-﻿using A.Contracts.Models;
-using A.Contracts.Update_Models;
-using B.Database.RedisCache;
-using C.Business.Students;
+﻿using A.Contracts.Update_Models;
+using Business.Redis;
+using Contracts.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace B.Database.MongoDB.StudentData
+namespace Business.Students
 {
     public class StudentCacheRepositoryDecorator : IStudentRepository
     {
@@ -37,7 +36,7 @@ namespace B.Database.MongoDB.StudentData
         public async Task<bool> DeleteStudent(string username)
         {
             await _redisCache.RemoveAllData();
-            return await (_studentDataAccess.DeleteStudent(username));
+            return await _studentDataAccess.DeleteStudent(username);
         }
 
         public async Task<StudentModel> GetStudent(string username)

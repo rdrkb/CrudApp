@@ -4,15 +4,14 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace B.Database.MongoDB
+namespace Business
 {
     public class MongoClientFactory
     {
         private readonly ConcurrentDictionary<string, MongoClient> _clientsMapper;
 
-        public MongoClientFactory() 
+        public MongoClientFactory()
         {
             _clientsMapper = new ConcurrentDictionary<string, MongoClient>();
         }
@@ -27,7 +26,7 @@ namespace B.Database.MongoDB
             var newClient = new MongoClient(connectionString);
 
             _clientsMapper.TryAdd(connectionString, newClient);
-            
+
             return newClient;
         }
     }

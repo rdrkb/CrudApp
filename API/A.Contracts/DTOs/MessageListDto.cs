@@ -1,4 +1,4 @@
-﻿namespace A.Contracts.DTOs
+﻿namespace Contracts.DTOs
 {
     public class MessageListDto
     {
