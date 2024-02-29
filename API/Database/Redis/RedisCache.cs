@@ -2,7 +2,7 @@
 using StackExchange.Redis;
 using System.Text.Json;
 
-namespace Business.Redis
+namespace Database.Redis
 {
     public class RedisCache : IRedisCache
     {

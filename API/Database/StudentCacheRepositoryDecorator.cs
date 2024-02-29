@@ -1,14 +1,10 @@
 ﻿using A.Contracts.Update_Models;
-using Business.Redis;
+using Business.Students;
 using Contracts.Models;
+using Database.Redis;
 using Microsoft.AspNetCore.JsonPatch;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Business.Students
+namespace Database
 {
     public class StudentCacheRepositoryDecorator : IStudentRepository
     {

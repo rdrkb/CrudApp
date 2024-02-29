@@ -1,10 +1,11 @@
 ﻿using Business;
+using Business.Messages;
 using Contracts.DTOs;
 using Contracts.Models;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 
-namespace Business.Messages
+namespace Database
 {
     public class MessageRepository : IMessageRepository
     {

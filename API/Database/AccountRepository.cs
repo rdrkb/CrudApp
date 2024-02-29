@@ -1,9 +1,11 @@
-﻿using Contracts.DTOs;
+﻿using Business;
+using Business.Accounts.Repositories;
+using Contracts.DTOs;
 using Contracts.Models;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 
-namespace Business.Accounts.Repositories
+namespace Database
 {
     public class AccountRepository : IAccountRepository
     {

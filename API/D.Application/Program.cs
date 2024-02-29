@@ -1,11 +1,8 @@
-
 using SchoolManagementApi.Extensions;
 using SchoolManagementApi.Middleware;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllers();
 
 // MongoDB configuration
@@ -14,7 +11,7 @@ builder.Services.AddMongoDB();
 // RabbitMQ configuration
 builder.Services.AddRabbitMQ(builder.Configuration);
 
-// Mediatr configuratio
+// MediatR configuration
 builder.Services.AddMediatRService();
 
 builder.Services.AddCustomServices();

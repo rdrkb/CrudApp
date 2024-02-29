@@ -1,11 +1,12 @@
 ﻿using A.Contracts.Update_Models;
 using Business;
+using Business.Teachers;
 using Contracts.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 
-namespace Business.Teachers
+namespace Database
 {
     public class TeacherRepository : ITeacherRepository
     {

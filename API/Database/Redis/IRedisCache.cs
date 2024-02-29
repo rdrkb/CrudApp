@@ -1,4 +1,4 @@
-﻿namespace Business.Redis
+﻿namespace Database.Redis
 {
     public interface IRedisCache
     {

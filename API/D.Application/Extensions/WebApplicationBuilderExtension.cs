@@ -3,7 +3,6 @@ using Business.Accounts.Repositories;
 using Business.Accounts.Services;
 using Business.Admins;
 using Business.Messages;
-using Business.Redis;
 using Business.Security;
 using Business.Students;
 using Business.Students.Consumers;
@@ -11,6 +10,8 @@ using Business.Teachers;
 using MassTransit;
 using SchoolManagementApi.Websocket;
 using Business.Extensions;
+using Database;
+using Database.Redis;
 
 namespace SchoolManagementApi.Extensions
 {

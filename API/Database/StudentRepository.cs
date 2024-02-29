@@ -1,11 +1,12 @@
 ﻿using A.Contracts.Update_Models;
 using Business;
+using Business.Students;
 using Contracts.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 
-namespace Business.Students
+namespace Database
 {
     public class StudentRepository : IStudentRepository
     {
