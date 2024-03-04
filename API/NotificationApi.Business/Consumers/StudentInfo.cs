@@ -1,4 +1,4 @@
-﻿namespace Business.Students.Consumers
+﻿namespace NotificationApi.Business.Consumers
 {
     public class StudentInfo
     {

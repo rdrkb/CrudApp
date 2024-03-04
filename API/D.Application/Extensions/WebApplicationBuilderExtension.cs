@@ -1,17 +1,16 @@
-﻿using Business;
-using Business.Accounts.Repositories;
+﻿using Business.Accounts.Repositories;
 using Business.Accounts.Services;
 using Business.Admins;
 using Business.Messages;
 using Business.Security;
 using Business.Students;
-using Business.Students.Consumers;
 using Business.Teachers;
 using MassTransit;
 using SchoolManagementApi.Websocket;
 using Business.Extensions;
 using Database;
 using Database.Redis;
+using Contracts.MongoClientFactory;
 
 namespace SchoolManagementApi.Extensions
 {
@@ -44,17 +43,9 @@ namespace SchoolManagementApi.Extensions
                     {
                         h.Username(configuration["RabbitMqConfig:UserName"]);
                         h.Password(configuration["RabbitMqConfig:Password"]);
-                      
-                    });
-                  
-                    // Register the consumer
-                    cfg.ReceiveEndpoint("my_queue", ep =>
-                    {
-                        ep.Consumer<StudentInfoConsumer>(context);
                     });
                 });
             });
-            services.AddScoped<StudentInfoConsumer>();
         }
 
         public static void AddCustomServices(this IServiceCollection services)

@@ -1,18 +1,17 @@
-﻿using MassTransit;
-using Newtonsoft.Json;
-using A.Contracts.Update_Models;
-using Business.Students;
+﻿using A.Contracts.Update_Models;
 using Contracts;
+using MassTransit;
+using Newtonsoft.Json;
+using NotificationApi.Business.Notification;
 
-namespace Business.Students.Consumers
+namespace NotificationApi.Business.Consumers
 {
     public class StudentInfoConsumer : IConsumer<UpdateStudentMessage>
     {
-        private readonly IStudentRepository _studentDataAccess;
-
-        public StudentInfoConsumer(IStudentRepository studentDataAccess)
+        private readonly INotificationRepository _notificationRepository;
+        public StudentInfoConsumer(INotificationRepository notificationRepository)
         {
-            _studentDataAccess = studentDataAccess;
+            _notificationRepository = notificationRepository;
         }
         public async Task Consume(ConsumeContext<UpdateStudentMessage> context)
         {
@@ -32,7 +31,7 @@ namespace Business.Students.Consumers
                 Blood_group = studentInfo.Blood_group
             };
 
-            await _studentDataAccess.UpdateStudent(username, student);
+            //await _studentDataAccess.UpdateStudent(username, student);
         }
     }
 }

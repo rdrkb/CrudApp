@@ -1,7 +1,8 @@
 ﻿using A.Contracts.Update_Models;
-using Business;
 using Business.Students;
+using Contracts;
 using Contracts.Models;
+using Contracts.MongoClientFactory;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
@@ -83,7 +84,7 @@ namespace Database
             return await GetCollection().Find(student => (university == "all" || student.University == university) && (department == "all" || student.Department == department)).CountDocumentsAsync();
         }
 
-        public async Task<bool> UpdateStudent(string username, UpdateStudentModel student)
+        public async Task<List<UserInfoUpdateEvent>> UpdateStudent(string username, UpdateStudentModel student)
         {
             var currentInfo = Builders<StudentModel>.Filter.Eq("Username", username);
 
@@ -96,9 +97,35 @@ namespace Database
                 .Set(s => s.Year_of_graduation, student.Year_of_graduation)
                 .Set(s => s.Blood_group, student.Blood_group);
 
+            var previousStudent = await GetCollection().Find(currentInfo).FirstOrDefaultAsync();
+
             var updateResult = await GetCollection().UpdateOneAsync(currentInfo, updateInfo);
 
-            return updateResult.ModifiedCount > 0;
+            var updateEvents = new List<UserInfoUpdateEvent>();
+
+            if(updateResult.ModifiedCount > 0)
+            {
+                
+                foreach (var property in typeof(UpdateStudentModel).GetProperties())
+                {
+                    var propertyName = property.Name;
+                    var previousValue = previousStudent.GetType().GetProperty(propertyName)?.GetValue(previousStudent, null)?.ToString();
+                    var currentValue = property.GetValue(student)?.ToString();
+
+                    if (previousValue != currentValue)
+                    {
+                        updateEvents.Add(new UserInfoUpdateEvent
+                        {
+                            UserName = username,
+                            UserInfoField = propertyName,
+                            PreviousUserInfoFieldValue = previousValue,
+                            CurrentUserInfoFieldValue = currentValue
+                        });
+                    }
+                }
+            }
+
+            return updateEvents;
         }
     }
 }

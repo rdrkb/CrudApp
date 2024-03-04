@@ -1,5 +1,6 @@
 ﻿using A.Contracts.Update_Models;
 using Business.Students;
+using Contracts;
 using Contracts.Models;
 using Database.Redis;
 using Microsoft.AspNetCore.JsonPatch;
@@ -91,7 +92,7 @@ namespace Database
             }
         }
 
-        public async Task<bool> UpdateStudent(string username, UpdateStudentModel student)
+        public async Task<List<UserInfoUpdateEvent>> UpdateStudent(string username, UpdateStudentModel student)
         {
             await _redisCache.RemoveAllData();
             return await _studentDataAccess.UpdateStudent(username, student);

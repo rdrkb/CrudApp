@@ -1,16 +1,21 @@
 ﻿using A.Contracts.Update_Models;
+using Contracts;
 using Contracts.Models;
+using MassTransit;
 using Microsoft.AspNetCore.JsonPatch;
+using Newtonsoft.Json;
 
 namespace Business.Students
 {
     public class StudentService : IStudentService
     {
         private readonly IStudentRepository _studentDataAccess;
+        private readonly IBus _bus;
 
-        public StudentService(IStudentRepository studentDataAccess)
+        public StudentService(IStudentRepository studentDataAccess, IBus bus)
         {
             _studentDataAccess = studentDataAccess;
+            _bus = bus;
         }
 
         public async Task CreateNewStudent(StudentModel student)
@@ -52,7 +57,25 @@ namespace Business.Students
 
         public async Task<bool> UpdateStudent(string username, UpdateStudentModel student)
         {
-            return await _studentDataAccess.UpdateStudent(username, student);
+            List<UserInfoUpdateEvent> events = await _studentDataAccess.UpdateStudent(username, student);
+
+            foreach (var evt in events)
+            {
+                var messageData = JsonConvert.SerializeObject(evt);
+
+                await _bus.Publish(new UpdateStudentMessage
+                {
+                    MessageData = messageData
+                });
+
+               /* Console.WriteLine($"Username: {evt.UserName}");
+                Console.WriteLine($"UserInfoField: {evt.UserInfoField}");
+                Console.WriteLine($"PreviousUserInfoFieldValue: {evt.PreviousUserInfoFieldValue}");
+                Console.WriteLine($"CurrentUserInfoFieldValue: {evt.CurrentUserInfoFieldValue}");
+                Console.WriteLine();*/
+            }
+
+            return events.Count > 0;
         }
     }
 }

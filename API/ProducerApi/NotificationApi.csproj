@@ -17,6 +17,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\A.Contracts\Contracts.csproj" />
+    <ProjectReference Include="..\NotificationApi.Business\NotificationApi.Business.csproj" />
+    <ProjectReference Include="..\NotificationApi.Repository\NotificationApi.Repository.csproj" />
   </ItemGroup>
 
 </Project>

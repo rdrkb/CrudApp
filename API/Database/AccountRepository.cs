@@ -1,7 +1,7 @@
-﻿using Business;
-using Business.Accounts.Repositories;
+﻿using Business.Accounts.Repositories;
 using Contracts.DTOs;
 using Contracts.Models;
+using Contracts.MongoClientFactory;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace SchoolManagementApi.Controllers
 {
 
-    [Authorize(Roles = "admin,student")]
+    //[Authorize(Roles = "admin,student")]
     [Route("api/[controller]")]
     [ApiController]
     public class StudentController : ControllerBase

@@ -1,7 +1,7 @@
 ﻿using MongoDB.Driver;
 using System.Collections.Concurrent;
 
-namespace Business
+namespace Contracts.MongoClientFactory
 {
     public class MongoClientFactory
     {

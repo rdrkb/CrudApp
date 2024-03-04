@@ -1,8 +1,13 @@
+using Contracts.MongoClientFactory;
 using MassTransit;
+using NotificationApi.Business.Consumers;
+using NotificationApi.Business.Notification;
+using NotificationApi.Repository.Notifications;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddSingleton<MongoClientFactory>();
 
 // Configure MassTransit with RabbitMQ
 builder.Services.AddMassTransit(config =>
@@ -14,14 +19,17 @@ builder.Services.AddMassTransit(config =>
             h.Username(builder.Configuration["RabbitMqConfig:UserName"]);
             h.Password(builder.Configuration["RabbitMqConfig:Password"]);
         });
-        /*cfg.ConfigureEndpoints(context);
-        cfg.ReceiveEndpoint("lol", e =>
+        cfg.ReceiveEndpoint("notification_queue", ep =>
         {
-            // Configure the consumer to process messages from the queue
-            e.Consumer<StudentInfoConsumer>();
-        });*/
+            ep.Consumer<StudentInfoConsumer>(context);
+        });
     });
 });
+builder.Services.AddScoped<StudentInfoConsumer>();
+
+builder.Services.AddSingleton<INotificationService, NotificationService>();
+builder.Services.AddSingleton<INotificationRepository, NotificationRepository>();
+
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
