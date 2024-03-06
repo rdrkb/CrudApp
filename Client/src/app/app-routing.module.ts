@@ -12,6 +12,7 @@ import { StudentHomeComponent } from "./home/_student/student-home/student-home.
 import { TeacherHomeComponent } from "./home/_teacher/teacher-home/teacher-home.component";
 import {MessageListComponent} from "./messages/message-list/message-list.component";
 import {MessageComponent} from "./messages/message/message.component";
+import {NotificationListComponent} from "./notifications/notification-list/notification-list.component";
 
 const routes: Routes = [
   { path: '', component: NavComponent },
@@ -25,7 +26,8 @@ const routes: Routes = [
   { path: 'studentHome', component: StudentHomeComponent },
   { path: 'teacherHome', component: TeacherHomeComponent },
   { path: 'chatList', component: MessageListComponent },
-  { path: 'message/:username', component: MessageComponent }
+  { path: 'message/:username', component: MessageComponent },
+  { path: 'notification', component: NotificationListComponent }
 ]
 
 @NgModule({

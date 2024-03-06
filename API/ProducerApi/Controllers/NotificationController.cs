@@ -1,8 +1,8 @@
 ﻿using Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NotificationApi.Business.Models;
 using NotificationApi.Business.Notification;
-using NotificationApi.Contracts.Models;
 
 namespace NotificationApi.Controllers
 {
@@ -17,7 +17,7 @@ namespace NotificationApi.Controllers
             _notificationService = notificationService;
         }
 
-        [HttpPost("Create")]
+        [HttpPost("CreateNotification")]
         public async Task<IActionResult> CreateNotification([FromBody] UserNotification userNotification)
         {
             try
@@ -31,7 +31,15 @@ namespace NotificationApi.Controllers
             }
         }
 
-        [HttpGet("Get")]
+        [HttpGet("totalNumberOfNotification")]
+        public async Task<IActionResult> GetTotalNumberOfNotification()
+        {
+            long totalNumberOfNotification = await _notificationService.GetNumberOfNotification();
+
+            return Ok(totalNumberOfNotification);
+        }
+
+        [HttpGet("GetNotifications")]
         public async Task<IActionResult> GetNotifications(int pageNumber = 1, int pageSize = 10)
         {
             List<UserNotification> userNotifications = new List<UserNotification>();

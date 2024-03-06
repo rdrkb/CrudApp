@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Contracts.Models
 {
-    public class BaseModel
+    public class BaseModel : IBaseModel
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]

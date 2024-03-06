@@ -1,8 +1,10 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using A.Contracts.Update_Models;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Contracts.Models
 {
-    public class StudentModel : BaseModel
+    public abstract class Student
     {
         [BsonElement("name")]
         public string Name { get; set; }
@@ -23,5 +25,13 @@ namespace Contracts.Models
 
         [BsonElement("blood_group")]
         public string Blood_group { get; set; }
+    }
+
+    public class StudentModel : Student, IBaseModel
+    {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get ; set; }
+        public string Username { get; set; }
     }
 }

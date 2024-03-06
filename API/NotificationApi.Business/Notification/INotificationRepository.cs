@@ -1,7 +1,7 @@
 ﻿
 
 using Contracts;
-using NotificationApi.Contracts.Models;
+using NotificationApi.Business.Models;
 
 namespace NotificationApi.Business.Notification
 {
@@ -9,5 +9,7 @@ namespace NotificationApi.Business.Notification
     {
         Task CreateNotification(UserNotification userNotification);
         Task<List<UserNotification>> GetNotifications(int pageNumber, int pageSize);
+
+        Task<long> GetNumberOfNotification();
     }
 }

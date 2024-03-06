@@ -32,6 +32,10 @@
   text-decoration: none;
 }
 
+.notification a{
+  color: #11d940;
+}
+
 .edit-profile-link {
   padding: 10px;
   background-color: #c2a305;

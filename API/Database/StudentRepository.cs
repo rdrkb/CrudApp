@@ -1,5 +1,5 @@
 ﻿using A.Contracts.Update_Models;
-using Business.Students;
+using Business.Students.Repositories;
 using Contracts;
 using Contracts.Models;
 using Contracts.MongoClientFactory;
@@ -86,7 +86,7 @@ namespace Database
 
         public async Task<List<UserInfoUpdateEvent>> UpdateStudent(string username, UpdateStudentModel student)
         {
-            var currentInfo = Builders<StudentModel>.Filter.Eq("Username", username);
+            var userFilter = Builders<StudentModel>.Filter.Eq("Username", username);
 
             var updateInfo = Builders<StudentModel>.Update
                 .Set(s => s.Name, student.Name)
@@ -97,9 +97,9 @@ namespace Database
                 .Set(s => s.Year_of_graduation, student.Year_of_graduation)
                 .Set(s => s.Blood_group, student.Blood_group);
 
-            var previousStudent = await GetCollection().Find(currentInfo).FirstOrDefaultAsync();
+            var previousStudent = await GetCollection().Find(userFilter).FirstOrDefaultAsync();
 
-            var updateResult = await GetCollection().UpdateOneAsync(currentInfo, updateInfo);
+            var updateResult = await GetCollection().UpdateOneAsync(userFilter, updateInfo);
 
             var updateEvents = new List<UserInfoUpdateEvent>();
 
@@ -126,6 +126,15 @@ namespace Database
             }
 
             return updateEvents;
+        }
+
+        public async Task<bool> SaveAsync(StudentModel student)
+        {
+            var filter = Builders<StudentModel>.Filter.Eq("Id", student.Id);
+
+            var result = await GetCollection().ReplaceOneAsync(filter, student, new ReplaceOptions { IsUpsert = true });
+            
+            return result.IsModifiedCountAvailable && result.IsAcknowledged;
         }
     }
 }

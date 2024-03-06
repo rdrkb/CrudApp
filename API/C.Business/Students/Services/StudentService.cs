@@ -1,21 +1,18 @@
 ﻿using A.Contracts.Update_Models;
-using Contracts;
+using Business.Students.Repositories;
 using Contracts.Models;
-using MassTransit;
 using Microsoft.AspNetCore.JsonPatch;
-using Newtonsoft.Json;
+using NotificationApi.Contracts.Events;
 
-namespace Business.Students
+namespace Business.Students.Services
 {
     public class StudentService : IStudentService
     {
         private readonly IStudentRepository _studentDataAccess;
-        private readonly IBus _bus;
 
-        public StudentService(IStudentRepository studentDataAccess, IBus bus)
+        public StudentService(IStudentRepository studentDataAccess)
         {
             _studentDataAccess = studentDataAccess;
-            _bus = bus;
         }
 
         public async Task CreateNewStudent(StudentModel student)
@@ -55,27 +52,48 @@ namespace Business.Students
             return await _studentDataAccess.TotalNumberOfStudents(pageNumber, itemPerPage, university, department);
         }
 
-        public async Task<bool> UpdateStudent(string username, UpdateStudentModel student)
+        public async Task<List<UpdatedField>> UpdateStudent(string username, UpdateStudentModel student)
         {
-            List<UserInfoUpdateEvent> events = await _studentDataAccess.UpdateStudent(username, student);
+            var studentModel = await _studentDataAccess.GetStudent(username);
 
-            foreach (var evt in events)
+            if (studentModel is null)
+                return null;
+
+            var updatedFields = new List<UpdatedField>();
+
+            foreach (var property in typeof(UpdateStudentModel).GetProperties())
             {
-                var messageData = JsonConvert.SerializeObject(evt);
+                var propertyName = property.Name;
+                var previousValue = studentModel.GetType().GetProperty(propertyName)?.GetValue(studentModel, null)?.ToString();
+                var currentValue = property.GetValue(student)?.ToString();
 
-                await _bus.Publish(new UpdateStudentMessage
+                if (previousValue != currentValue)
                 {
-                    MessageData = messageData
-                });
-
-               /* Console.WriteLine($"Username: {evt.UserName}");
-                Console.WriteLine($"UserInfoField: {evt.UserInfoField}");
-                Console.WriteLine($"PreviousUserInfoFieldValue: {evt.PreviousUserInfoFieldValue}");
-                Console.WriteLine($"CurrentUserInfoFieldValue: {evt.CurrentUserInfoFieldValue}");
-                Console.WriteLine();*/
+                    updatedFields.Add(new UpdatedField
+                    {
+                        FieldName = propertyName,
+                        PreviousValue = previousValue,
+                        CurrentValue = currentValue
+                    });
+                }
             }
 
-            return events.Count > 0;
+            studentModel.Student_id = student.Student_id;
+            studentModel.Gender = student.Gender;
+            studentModel.Year_of_graduation = student.Year_of_graduation;
+            studentModel.Blood_group = student.Blood_group;
+            studentModel.Department = student.Department;
+            studentModel.Name = student.Name;
+            studentModel.University = student.University;
+
+            var saveSuccess = await _studentDataAccess.SaveAsync(studentModel);
+
+            if (!saveSuccess)
+            {
+                return null;
+            }
+
+            return updatedFields;
         }
     }
 }

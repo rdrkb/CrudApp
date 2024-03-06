@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AccountService} from "../../_services/account.service";
 import {Router} from "@angular/router";
+import {NotificationService} from "../../_services/notification.service";
 
 @Component({
   selector: 'app-home-nav',
@@ -10,7 +11,7 @@ import {Router} from "@angular/router";
 export class HomeNavComponent implements OnInit {
   currentUser: any;
 
-  constructor(private accountService: AccountService, private router: Router) {}
+  constructor(private accountService: AccountService, private notificationService: NotificationService, private router: Router) {}
   ngOnInit() {
     this.currentUser = this.accountService.getCurrentUser();
   }

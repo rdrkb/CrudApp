@@ -24,6 +24,7 @@ import { StudentFilterComponent } from './home/_student/student-filter/student-f
 import { TeacherFilterComponent } from './home/_teacher/teacher-filter/teacher-filter.component';
 import { MessageListComponent } from './messages/message-list/message-list.component';
 import { MessageComponent } from './messages/message/message.component';
+import { NotificationListComponent } from './notifications/notification-list/notification-list.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { MessageComponent } from './messages/message/message.component';
     StudentFilterComponent,
     TeacherFilterComponent,
     MessageListComponent,
-    MessageComponent
+    MessageComponent,
+    NotificationListComponent
   ],
   imports: [
     BrowserModule,

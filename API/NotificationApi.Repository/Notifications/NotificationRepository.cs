@@ -2,8 +2,8 @@
 using Contracts.MongoClientFactory;
 using MongoDB.Driver;
 using NotificationApi.Business.Notification;
-using NotificationApi.Contracts.Models;
 using Contracts;
+using NotificationApi.Business.Models;
 
 namespace NotificationApi.Repository.Notifications
 {
@@ -36,6 +36,11 @@ namespace NotificationApi.Repository.Notifications
         {
             await GetCollection().InsertOneAsync(userNotification);
             return;
+        }
+
+        public async Task<long> GetNumberOfNotification()
+        {
+            return await GetCollection().Find(x => true).CountDocumentsAsync();
         }
     }
 }

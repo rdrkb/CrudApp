@@ -3,7 +3,7 @@ using Contracts;
 using Contracts.Models;
 using Microsoft.AspNetCore.JsonPatch;
 
-namespace Business.Students
+namespace Business.Students.Repositories
 {
     public interface IStudentRepository
     {
@@ -15,5 +15,6 @@ namespace Business.Students
         Task<bool> DeleteStudent(string username);
         Task<bool> DeleteAllStudent();
         Task<bool> PartiallyUpdateStudent(string username, JsonPatchDocument<StudentModel> patchDocument);
+        Task<bool> SaveAsync(StudentModel student);
     }
 }

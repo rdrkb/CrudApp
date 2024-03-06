@@ -16,6 +16,9 @@
     </div>
     <div class="user-info">
       <p>Welcome!!! {{currentUser.username}} </p>
+      <div class="notification">
+        <a *ngIf="currentUser.role === 'admin'" routerLink="/notification">Notification</a>
+      </div>
       <a *ngIf="currentUser.role === 'admin'" routerLink="/adminEdit">Edit Profile</a>
       <a *ngIf="currentUser.role === 'student'" routerLink="/studentEdit">Edit Profile</a>
       <a *ngIf="currentUser.role === 'teacher'" routerLink="/teacherEdit">Edit Profile</a>

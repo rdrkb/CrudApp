@@ -3,7 +3,6 @@ using Business.Accounts.Services;
 using Business.Admins;
 using Business.Messages;
 using Business.Security;
-using Business.Students;
 using Business.Teachers;
 using MassTransit;
 using SchoolManagementApi.Websocket;
@@ -11,6 +10,9 @@ using Business.Extensions;
 using Database;
 using Database.Redis;
 using Contracts.MongoClientFactory;
+using Contracts;
+using Business.Students.Services;
+using Business.Students.Repositories;
 
 namespace SchoolManagementApi.Extensions
 {
@@ -33,16 +35,19 @@ namespace SchoolManagementApi.Extensions
 
         public static void AddRabbitMQ(this IServiceCollection services, IConfiguration configuration)
         {
-
             services.AddMassTransit(config =>
             {
-                
                 config.UsingRabbitMq((context, cfg) =>
                 {
                     cfg.Host(configuration["RabbitMqConfig:HostName"], h =>
                     {
                         h.Username(configuration["RabbitMqConfig:UserName"]);
                         h.Password(configuration["RabbitMqConfig:Password"]);
+                    });
+
+                    cfg.Publish<UpdateStudentMessage>(p =>
+                    {
+
                     });
                 });
             });

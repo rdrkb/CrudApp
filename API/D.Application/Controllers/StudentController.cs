@@ -1,6 +1,8 @@
 ﻿using A.Contracts.Update_Models;
 using Business.Students;
+using Business.Students.Commands;
 using Contracts.Models;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -13,11 +15,10 @@ namespace SchoolManagementApi.Controllers
     [ApiController]
     public class StudentController : ControllerBase
     {
-        private readonly IStudentService _studentLogic;
-
-        public StudentController(IStudentService studentLogic)
+        private readonly IMediator _mediator;
+        public StudentController(IMediator mediator)
         {
-            _studentLogic = studentLogic;
+            _mediator = mediator;
         }
 
 
@@ -26,7 +27,8 @@ namespace SchoolManagementApi.Controllers
         {
             try
             {
-                await _studentLogic.CreateNewStudent(student);
+                await _mediator.Send(new CreateStudentCommand(student));
+
                 return StatusCode(201, new { success = true, message = "Student created successfully" });
             }
             catch (FormatException e)
@@ -47,7 +49,7 @@ namespace SchoolManagementApi.Controllers
 
             try
             {
-                studentModels = await _studentLogic.GetStudents(pageNumber, itemPerPage, university, department);
+                studentModels = await _mediator.Send(new GetStudentsCommand(pageNumber, itemPerPage, university, department));
                 return Ok(studentModels);
             }
             catch (Exception e)
@@ -63,7 +65,7 @@ namespace SchoolManagementApi.Controllers
 
             try
             {
-                studentModel = await _studentLogic.GetStudent(username);
+                studentModel = await _mediator.Send(new GetStudentCommand(username));
                 return Ok(studentModel);
             }
             catch (Exception e)
@@ -76,7 +78,7 @@ namespace SchoolManagementApi.Controllers
         [HttpGet("totalstudents")]
         public async Task<long> TotalNumberOfStudents(int pageNumber = 1, int itemPerPage = 10, string university = "all", string department = "all")
         {
-            return await _studentLogic.TotalNumberOfStudents(pageNumber, itemPerPage, university, department);
+            return await _mediator.Send(new GetTotalNumberOfStudentsCommand(pageNumber, itemPerPage, university, department));
         }
 
         [HttpPut("update/{username}")]
@@ -84,7 +86,7 @@ namespace SchoolManagementApi.Controllers
         {
             try
             {
-                await _studentLogic.UpdateStudent(username, student);
+                await _mediator.Send(new UpdateStudentCommand(username, student));
 
                 return Ok(new { Message = "Student updated successfully." });
             }
@@ -103,7 +105,7 @@ namespace SchoolManagementApi.Controllers
         {
             try
             {
-                bool isDeleted = await _studentLogic.DeleteStudent(username);
+                bool isDeleted = await _mediator.Send(new DeleteStudentCommand(username));
 
                 if (isDeleted)
                 {
@@ -125,7 +127,7 @@ namespace SchoolManagementApi.Controllers
         {
             try
             {
-                bool isDeleted = await _studentLogic.DeleteAllStudent();
+                bool isDeleted = await _mediator.Send(new DeleteAllStudentCommand());
 
                 if (isDeleted)
                 {
@@ -145,14 +147,9 @@ namespace SchoolManagementApi.Controllers
         [HttpPatch("updatepartial/{username}")]
         public async Task<IActionResult> PartiallyUpdateStudent(string username, [FromBody] JsonPatchDocument<StudentModel> patchDocument)
         {
-            if (string.IsNullOrEmpty(username) || patchDocument == null)
-            {
-                return BadRequest("Invalid username or payload");
-            }
-
             try
             {
-                bool isStudentFound = await _studentLogic.PartiallyUpdateStudent(username, patchDocument);
+                bool isStudentFound = await _mediator.Send(new PartiallyUpdateStudentCommand(username, patchDocument));
 
                 if (isStudentFound)
                 {

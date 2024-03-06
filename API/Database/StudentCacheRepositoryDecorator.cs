@@ -1,5 +1,5 @@
 ﻿using A.Contracts.Update_Models;
-using Business.Students;
+using Business.Students.Repositories;
 using Contracts;
 using Contracts.Models;
 using Database.Redis;
@@ -68,6 +68,12 @@ namespace Database
         {
             await _redisCache.RemoveAllData();
             return await _studentDataAccess.PartiallyUpdateStudent(username, patchDocument);
+        }
+
+        public async Task<bool> SaveAsync(StudentModel student)
+        {
+            await _redisCache.RemoveAllData();
+            return await _studentDataAccess.SaveAsync(student);
         }
 
         public async Task<long> TotalNumberOfStudents(int pageNumber, int pageSize, string university, string department)

@@ -1,0 +1,20 @@
+<app-home-nav></app-home-nav>
+
+<div class="notification-page">
+  <div class="notification-details">
+    <table class="notification-table">
+      <thead>
+      <tr>
+        <th style="text-align: center">Title</th>
+        <th style="text-align: center">Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let notification of notificationList">
+        <td>{{ notification.title }}</td>
+        <td>{{ notification.description }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
