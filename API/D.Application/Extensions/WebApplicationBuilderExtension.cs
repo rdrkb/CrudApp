@@ -1,16 +1,13 @@
 ﻿using Business.Accounts.Repositories;
 using Business.Accounts.Services;
 using Business.Admins;
-using Business.Messages;
 using Business.Security;
 using Business.Teachers;
 using MassTransit;
-using SchoolManagementApi.Websocket;
 using Business.Extensions;
 using Database;
 using Database.Redis;
 using Contracts.MongoClientFactory;
-using Contracts;
 using Business.Students.Services;
 using Business.Students.Repositories;
 
@@ -44,11 +41,6 @@ namespace SchoolManagementApi.Extensions
                         h.Username(configuration["RabbitMqConfig:UserName"]);
                         h.Password(configuration["RabbitMqConfig:Password"]);
                     });
-
-                    cfg.Publish<UpdateStudentMessage>(p =>
-                    {
-
-                    });
                 });
             });
         }
@@ -61,7 +53,7 @@ namespace SchoolManagementApi.Extensions
             services.AddSingleton<StudentRepository>();
             services.AddSingleton<ITeacherRepository, TeacherRepository>();
             services.AddSingleton<IAdminRepository, AdminRepository>();
-            services.AddSingleton<IMessageRepository, MessageRepository>();
+            
 
             // Cache
             services.AddSingleton<IRedisCache, RedisCache>();
@@ -71,13 +63,12 @@ namespace SchoolManagementApi.Extensions
             services.AddSingleton<IStudentService, StudentService>();
             services.AddSingleton<ITeacherService, TeacherService>();
             services.AddSingleton<IAdminService, AdminService>();
-            services.AddSingleton<IMessageService, MessageService>();
+            
 
             // Token Service
             services.AddSingleton<ITokenService, TokenService>();
 
-            // WebSocket middleware
-            services.AddSingleton<IWebSocketHandler, WebSocketHandler>();
+            
         }
     }
 }

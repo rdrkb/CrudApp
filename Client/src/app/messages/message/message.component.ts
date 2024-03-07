@@ -40,16 +40,14 @@ export class MessageComponent implements OnInit, OnDestroy {
 
     this.refreshList();
 
-
-
     // Store the subscription
-    this.socketSubscription = this.messageService.connect('wss://localhost:7173/ws').subscribe(
+    this.socketSubscription = this.messageService.connect('wss://localhost:7290/ws/message').subscribe(
       (message: any) => {
         this.messages.push(message);
         if(this.currentPage > 1 || this.messages.length > this.messagePerPage) {
           this.onPageChange(1);
         }
-        else if (this.messages.length > this.messagePerPage) {
+        if (this.messages.length > this.messagePerPage) {
           this.messages.shift();
         }
       },

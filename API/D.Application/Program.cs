@@ -1,5 +1,4 @@
 using SchoolManagementApi.Extensions;
-using SchoolManagementApi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,12 +26,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-
-app.UseWebSockets();
-app.Map("/ws", builder =>
-{
-    builder.UseMiddleware<WebSocketMiddleware>();
-});
 
 
 // Configure the HTTP request pipeline.

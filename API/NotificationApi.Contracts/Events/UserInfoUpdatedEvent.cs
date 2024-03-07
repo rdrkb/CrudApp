@@ -1,20 +1,18 @@
-﻿
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
+using NotificationApi.Contracts.Models;
+
 namespace NotificationApi.Contracts.Events
 {
     public class UserInfoUpdatedEvent
     {
+        public string Id { get; set; }
+        public string Title { get; set; }
         public string Username { get; set; }
-        public List<UpdatedField> UpdatedFields { get; set; }
-        public UserInfoUpdatedEvent()
-        {
-            UpdatedFields = new List<UpdatedField>();
-        }
-    }
+        public string Description { get; set; }
+        public List<UpdatedField> Content { get; set; }
+        public string Receiver { get; set; }
 
-    public class UpdatedField
-    {
-        public string FieldName { get; set; }
-        public string CurrentValue { get; set; }
-        public string PreviousValue { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

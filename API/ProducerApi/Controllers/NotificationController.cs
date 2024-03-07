@@ -1,8 +1,6 @@
-﻿using Contracts;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using NotificationApi.Business.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 using NotificationApi.Business.Notification;
+using NotificationApi.Contracts.Models;
 
 namespace NotificationApi.Controllers
 {

@@ -1,7 +1,7 @@
 ﻿using Contracts.DTOs;
 using Contracts.Models;
 
-namespace Business.Messages
+namespace NotificationApi.Business.Messages
 {
     public class MessageService : IMessageService
     {

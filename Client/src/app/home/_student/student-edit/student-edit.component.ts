@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import { AccountService } from '../../../_services/account.service'; 
-import { StudentService } from '../../../_services/student.service'; 
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import { AccountService } from '../../../_services/account.service';
+import { StudentService } from '../../../_services/student.service';
 import {Router} from "@angular/router";
+import {NotificationService} from "../../../_services/notification.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-student-edit',
@@ -12,9 +14,29 @@ export class StudentEditComponent implements OnInit {
   userName: any;
   userData: any;
   formFields: any = {};
-  constructor(private accountService: AccountService, private studentService: StudentService, private  router: Router) {}
+
+  socketSubscription!: Subscription;
+  constructor(private accountService: AccountService, private studentService: StudentService,private notificationService: NotificationService, private  router: Router) {}
   ngOnInit() {
     this.userName = this.accountService.getCurrentUser()['username'];
+    this.refreshPage();
+
+    // Store the subscription
+    this.socketSubscription = this.notificationService.connect('wss://localhost:7290/ws/notification').subscribe(
+      (message: any) => {
+        console.log('In component');
+      },
+      (error: any) => {
+        console.error('Error in WebSocket connection:', error);
+      },
+      () => {
+        console.log('WebSocket connection closed.');
+      }
+    );
+  }
+
+  refreshPage()
+  {
     this.studentService.getStudent(this.userName).subscribe({
       next: data => {
         this.userData = data;
@@ -32,10 +54,8 @@ export class StudentEditComponent implements OnInit {
         console.log(error);
       }
     });
-
-
-
   }
+
   onSubmit() {
     var data: any = {
       name: this.formFields['name'],
@@ -48,8 +68,10 @@ export class StudentEditComponent implements OnInit {
     };
 
     this.studentService.updateStudent(this.userData.username, data).subscribe(
-      (response) => {
-        console.log('Student updated successfully:', response);
+      (notification) => {
+        this.notificationService.sendNotificationToWS(notification);
+        //console.log('Student updated successfully:', notification);
+        this.socketSubscription.unsubscribe();
       },
       (error) => {
         console.error('Error updating student:', error);

@@ -1,9 +1,9 @@
 ﻿using Contracts.DTOs;
 using Contracts.Models;
 
-namespace Business.Messages
+namespace NotificationApi.Business.Messages
 {
-    public interface IMessageService
+    public interface IMessageRepository
     {
         Task CreateMessage(MessageDto message);
         Task<bool> DeleteMessage(string id);

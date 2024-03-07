@@ -1,11 +1,10 @@
 ﻿using A.Contracts.Update_Models;
-using Business.Students;
 using Business.Students.Commands;
 using Contracts.Models;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using NotificationApi.Contracts.Models;
 
 namespace SchoolManagementApi.Controllers
 {
@@ -84,11 +83,12 @@ namespace SchoolManagementApi.Controllers
         [HttpPut("update/{username}")]
         public async Task<IActionResult> UpdateStudent(string username, [FromBody] UpdateStudentModel student)
         {
+            UserNotification userNotification = new UserNotification();
             try
             {
-                await _mediator.Send(new UpdateStudentCommand(username, student));
+                userNotification = await _mediator.Send(new UpdateStudentCommand(username, student));
 
-                return Ok(new { Message = "Student updated successfully." });
+                return Ok(userNotification);
             }
             catch (FormatException e)
             {

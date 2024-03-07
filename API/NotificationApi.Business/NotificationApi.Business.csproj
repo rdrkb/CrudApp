@@ -16,8 +16,4 @@
     <ProjectReference Include="..\NotificationApi.Contracts\NotificationApi.Contracts.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Message\" />
-  </ItemGroup>
-
 </Project>

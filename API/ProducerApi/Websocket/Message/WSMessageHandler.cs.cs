@@ -6,20 +6,20 @@ using System.Text;
 using Business.Security;
 using Contracts.DTOs;
 
-namespace SchoolManagementApi.Websocket
+namespace NotificationApi.Websocket.Message
 {
-    public class WebSocketHandler : IWebSocketHandler
+    public class WSMessageHandler : IWSMessageHandler
     {
-        private static ConcurrentDictionary<string, WebSocket> _clients = new ConcurrentDictionary<string, WebSocket>();
+        private static ConcurrentDictionary<string, List<WebSocket>> _clients = new ConcurrentDictionary<string, List<WebSocket>>();
 
         private readonly ITokenService _tokenService;
 
-        public WebSocketHandler(ITokenService tokenService)
+        public WSMessageHandler(ITokenService tokenService)
         {
             _tokenService = tokenService;
         }
 
-        public async Task HandleWebSocket(HttpContext context)
+        public async Task HandleWebSocketForMessage(HttpContext context)
         {
             if (context.WebSockets.IsWebSocketRequest)
             {
@@ -29,11 +29,21 @@ namespace SchoolManagementApi.Websocket
 
                 var username = _tokenService.GetUsernameFromToken(token);
 
-                _clients.TryAdd(username, webSocket);
+                if (!_clients.ContainsKey(username))
+                {
+                    _clients[username] = new List<WebSocket>();
+                }
+
+                _clients[username].Add(webSocket);
 
                 await Receive(webSocket);
 
-                _clients.TryRemove(username, out _);
+                _clients[username].Remove(webSocket);
+
+                if (_clients[username].Count == 0)
+                {
+                    _clients.TryRemove(username, out _);
+                }
             }
             else
             {
@@ -42,7 +52,7 @@ namespace SchoolManagementApi.Websocket
         }
         private async Task Receive(WebSocket webSocket)
         {
-            var buffer = new byte[1024 * 4];
+            var buffer = new byte[1024];
 
             try
             {
@@ -76,28 +86,33 @@ namespace SchoolManagementApi.Websocket
         }
         public async Task SendMessage(MessageDto message)
         {
-            if (_clients.TryGetValue(message.Receiver, out WebSocket receiverWebSocket))
+            if (_clients.TryGetValue(message.Receiver, out List<WebSocket> receiverWebSockets))
             {
-                // If the receiver is connected, send the message directly to them
+                // If the receiver is connected, send the message to all WebSocket instances associated with the receiver username
                 var jsonMessage = JsonConvert.SerializeObject(message, new JsonSerializerSettings
                 {
                     ContractResolver = new CamelCasePropertyNamesContractResolver()
                 });
                 var buffer = Encoding.UTF8.GetBytes(jsonMessage);
-                await receiverWebSocket.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Text, true, CancellationToken.None);
+                foreach (var receiverWebSocket in receiverWebSockets)
+                {
+                    await receiverWebSocket.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Text, true, CancellationToken.None);
+                }
             }
 
-            // Also send the message to the sender
-            if (_clients.TryGetValue(message.Sender, out WebSocket senderWebSocket))
+            // Also send the message to all WebSocket instances associated with the sender username
+            if (_clients.TryGetValue(message.Sender, out List<WebSocket> senderWebSockets))
             {
                 var jsonMessage = JsonConvert.SerializeObject(message, new JsonSerializerSettings
                 {
                     ContractResolver = new CamelCasePropertyNamesContractResolver()
                 });
                 var buffer = Encoding.UTF8.GetBytes(jsonMessage);
-                await senderWebSocket.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Text, true, CancellationToken.None);
+                foreach (var senderWebSocket in senderWebSockets)
+                {
+                    await senderWebSocket.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Text, true, CancellationToken.None);
+                }
             }
-
         }
     }
 }

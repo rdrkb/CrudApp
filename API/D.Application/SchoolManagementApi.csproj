@@ -20,6 +20,7 @@
     <ProjectReference Include="..\A.Contracts\Contracts.csproj" />
     <ProjectReference Include="..\C.Business\Business.csproj" />
     <ProjectReference Include="..\Database\Database.csproj" />
+    <ProjectReference Include="..\NotificationApi.Contracts\NotificationApi.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿using MassTransit;
-using NotificationApi.Business.Models;
 using NotificationApi.Business.Notification;
 using NotificationApi.Contracts.Events;
+using NotificationApi.Contracts.Models;
 
 namespace NotificationApi.Business.Consumers
 {
@@ -18,35 +18,17 @@ namespace NotificationApi.Business.Consumers
         {
             var message = context.Message;
 
-            var updatedFields = message.UpdatedFields;
-
-            var notification = new UserNotification 
-            { 
-                Title = "User Info Updated",
+            var notification = new UserNotification
+            {
+                Id = message.Id,
+                Title = message.Title,
                 Username = message.Username,
-                Description = GetDescription(updatedFields),
-                Receiver = "Admin",
-                Content = updatedFields
+                Description = message.Description,
+                Receiver = message.Receiver,
+                Content = message.Content
             };
 
             await _notificationRepository.CreateNotification(notification);
-
-            // send this notification to admins 
-            
-        }
-
-        private string GetDescription(List<UpdatedField> updatedFields)
-        {
-            if (updatedFields.Count == 1)
-            {
-                return "";
-            }
-            if (updatedFields.Count == 2)
-            {
-                return "";
-            } 
-
-            return $"{updatedFields[0].FieldName} , {updatedFields[1].FieldName} and {updatedFields.Count - 2} others fields updated";
         }
     }
 }

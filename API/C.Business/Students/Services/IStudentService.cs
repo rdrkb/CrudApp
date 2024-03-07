@@ -1,7 +1,7 @@
 ﻿using A.Contracts.Update_Models;
 using Contracts.Models;
 using Microsoft.AspNetCore.JsonPatch;
-using NotificationApi.Contracts.Events;
+using NotificationApi.Contracts.Models;
 
 namespace Business.Students.Services
 {

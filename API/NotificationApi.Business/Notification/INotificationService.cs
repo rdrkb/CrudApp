@@ -1,5 +1,5 @@
 ﻿using Contracts;
-using NotificationApi.Business.Models;
+using NotificationApi.Contracts.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

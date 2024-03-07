@@ -11,7 +11,7 @@ export class MessageService {
 
   private socket!: WebSocket;
 
-  private apiUrl = environment.apiUrl;
+  private apiUrl = 'https://localhost:7290/api/';
   constructor(private http: HttpClient) { }
 
   connect(url: string): Observable<any> {
@@ -46,7 +46,6 @@ export class MessageService {
       };
     });
   }
-
   sendMessageToWS(message: any) {
     if (this.socket.readyState === WebSocket.OPEN) {
       this.socket.send(JSON.stringify(message));

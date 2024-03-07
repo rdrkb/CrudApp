@@ -45,6 +45,28 @@ namespace Business.Security
             return tokenHandler.WriteToken(token);
         }
 
+        public string GetRoleFromToken(string token)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            try
+            {
+                var principal = tokenHandler.ValidateToken(token, _tokenValidationParameters, out _);
+
+                var roleClaim = principal.FindFirst("role");
+
+                if(roleClaim != null)
+                {
+                    return roleClaim.Value;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Token validation failed: {ex.Message}");
+            }
+            return null;
+        }
+
         public string GetUsernameFromToken(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -64,11 +86,9 @@ namespace Business.Security
             }
             catch (Exception ex)
             {
-                // Log or handle any exceptions here
                 Console.WriteLine($"Token validation failed: {ex.Message}");
             }
 
-            // Return null if username claim is not found or if token is invalid
             return null;
         }
     }

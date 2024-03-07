@@ -1,8 +1,15 @@
+using Business.Security;
 using Contracts.MongoClientFactory;
 using MassTransit;
 using NotificationApi.Business.Consumers;
+using NotificationApi.Business.Messages;
 using NotificationApi.Business.Notification;
+using NotificationApi.Extensions;
+using NotificationApi.Middleware;
+using NotificationApi.Repository.Messages;
 using NotificationApi.Repository.Notifications;
+using NotificationApi.Websocket.Message;
+using NotificationApi.Websocket.Notification;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,7 +39,21 @@ builder.Services.AddMassTransit(config =>
 builder.Services.AddScoped<UserInfoUpdatedEventConsumer>();
 
 builder.Services.AddSingleton<INotificationService, NotificationService>();
+builder.Services.AddSingleton<IMessageService, MessageService>();
+
+
 builder.Services.AddSingleton<INotificationRepository, NotificationRepository>();
+builder.Services.AddSingleton<IMessageRepository, MessageRepository>();
+
+// Token Service
+builder.Services.AddSingleton<ITokenService, TokenService>();
+
+// WebSocket middleware
+builder.Services.AddSingleton<IWSMessageHandler, WSMessageHandler>();
+builder.Services.AddSingleton<IWSNotificationHandler,  WSNotificationHandler>();
+
+builder.Services.AddJwtAuthentication(builder.Configuration);
+builder.Services.AddCustomAuthorization();
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 builder.Services.AddControllers();
@@ -44,6 +65,18 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseWebSockets();
+app.Map("/ws/message", builder =>
+{
+    builder.UseMiddleware<WSMessageMiddleware>();
+});
+app.Map("/ws/notification", builder =>
+{
+    builder.UseMiddleware<WSNotificationMiddleware>();
+});
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

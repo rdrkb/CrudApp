@@ -1,6 +1,6 @@
 ﻿
 using Contracts;
-using NotificationApi.Business.Models;
+using NotificationApi.Contracts.Models;
 
 namespace NotificationApi.Business.Notification
 {

@@ -11,12 +11,14 @@
     <PackageReference Include="MassTransit" Version="8.1.3" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="8.1.3" />
     <PackageReference Include="MediatR" Version="12.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\A.Contracts\Contracts.csproj" />
+    <ProjectReference Include="..\C.Business\Business.csproj" />
     <ProjectReference Include="..\NotificationApi.Business\NotificationApi.Business.csproj" />
     <ProjectReference Include="..\NotificationApi.Repository\NotificationApi.Repository.csproj" />
   </ItemGroup>

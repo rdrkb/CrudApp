@@ -3,7 +3,7 @@ using Contracts.MongoClientFactory;
 using MongoDB.Driver;
 using NotificationApi.Business.Notification;
 using Contracts;
-using NotificationApi.Business.Models;
+using NotificationApi.Contracts.Models;
 
 namespace NotificationApi.Repository.Notifications
 {
@@ -27,6 +27,7 @@ namespace NotificationApi.Repository.Notifications
         {
             int skipNotification = (pageNumber - 1) * pageSize;
             return await GetCollection().Find(x => true)
+                .SortByDescending(x => x.CreatedAt)
                 .Skip(skipNotification)
                 .Limit(pageSize)
                 .ToListAsync();

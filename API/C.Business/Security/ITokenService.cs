@@ -6,5 +6,6 @@ namespace Business.Security
     {
         string CreateToken(AccountModel accountModel);
         string GetUsernameFromToken(string token);
+        string GetRoleFromToken(string token); 
     }
 }
