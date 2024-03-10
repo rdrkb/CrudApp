@@ -2,6 +2,8 @@
 using Contracts.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using SchoolManagement.Shared.CQRS;
 
 namespace SchoolManagementApi.Controllers
 {
@@ -10,9 +12,11 @@ namespace SchoolManagementApi.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public AccountController(IMediator mediator)
+        private readonly ICommandService _commandService;
+        public AccountController(IMediator mediator, ICommandService commandService)
         {
             _mediator = mediator;
+            _commandService = commandService;
         }
 
         [HttpPost("register")]
@@ -35,12 +39,26 @@ namespace SchoolManagementApi.Controllers
         {
             try
             {
-                Token result = await _mediator.Send(new UserLoginCommand(loginModel));
+                var userLoginCommand = new DynamicCommand
+                {
+                    Name = "UserLoginDynamicCommand",
+                    Api = "SchoolManagementApi",
+                    WaitForResponse = true,
+                };
 
-                if (!string.IsNullOrEmpty(result.token))
+                userLoginCommand.SetValue("LoginModel", loginModel);
+
+                var dynamicCommandResult = await _commandService.ExecuteAsync(userLoginCommand);
+
+                //Token result = await _mediator.Send(new UserLoginCommand(loginModel));
+
+                if (dynamicCommandResult.FieldValues.ContainsKey("Token"))
                 {
 
-                    return Ok(new { Token = result.token });
+                    return Ok(new Token
+                    {
+                        token = dynamicCommandResult.GetValue<string>("Token")!
+                    });
                 }
                 else
                 {

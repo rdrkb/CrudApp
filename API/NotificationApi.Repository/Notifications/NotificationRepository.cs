@@ -2,7 +2,6 @@
 using Contracts.MongoClientFactory;
 using MongoDB.Driver;
 using NotificationApi.Business.Notification;
-using Contracts;
 using NotificationApi.Contracts.Models;
 
 namespace NotificationApi.Repository.Notifications

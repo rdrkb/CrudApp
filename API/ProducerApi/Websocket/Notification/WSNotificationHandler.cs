@@ -1,6 +1,5 @@
 ﻿
 using Business.Security;
-using Contracts.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using NotificationApi.Contracts.Models;
@@ -29,6 +28,13 @@ namespace NotificationApi.Websocket.Notification
                 var token = context.Request.Query["token"];
 
                 var username = _tokenService.GetUsernameFromToken(token);
+                var role = _tokenService.GetRoleFromToken(token);
+                Console.WriteLine($"{role}");
+                if (role == "admin")
+                {
+                    username = "@admin";
+                }
+                Console.WriteLine($"{username}");
 
                 if (!_clients.ContainsKey(username))
                 {
@@ -89,6 +95,7 @@ namespace NotificationApi.Websocket.Notification
         {
             if (_clients.TryGetValue(notificationModel.Receiver, out List<WebSocket> receiverWebSockets))
             {
+                Console.WriteLine($"{notificationModel.Receiver}");
                 var jsonMessage = JsonConvert.SerializeObject(notificationModel, new JsonSerializerSettings
                 {
                     ContractResolver = new CamelCasePropertyNamesContractResolver()

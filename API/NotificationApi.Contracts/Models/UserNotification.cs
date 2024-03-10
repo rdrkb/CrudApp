@@ -1,7 +1,4 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-
-namespace NotificationApi.Contracts.Models
+﻿namespace NotificationApi.Contracts.Models
 {
     public class UserNotification
     {

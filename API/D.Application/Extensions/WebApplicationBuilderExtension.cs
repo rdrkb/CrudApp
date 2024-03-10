@@ -10,6 +10,10 @@ using Database.Redis;
 using Contracts.MongoClientFactory;
 using Business.Students.Services;
 using Business.Students.Repositories;
+using SchoolManagement.Shared.CQRS;
+using Business.Accounts.Commands;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SchoolManagementApi.Extensions
 {
@@ -47,6 +51,8 @@ namespace SchoolManagementApi.Extensions
 
         public static void AddCustomServices(this IServiceCollection services)
         {
+            services.AddTransient<ICommandService, CommandService>();
+             services.AddKeyedTransient<IDynamicCommandConsumer, UserLoginDynamicCommandConsumer>("UserLoginDynamicCommandConsumer");
             // DataAccess
             services.AddSingleton<IAccountRepository, AccountRepository>();
             services.AddSingleton<IStudentRepository, StudentCacheRepositoryDecorator>();
@@ -69,6 +75,18 @@ namespace SchoolManagementApi.Extensions
             services.AddSingleton<ITokenService, TokenService>();
 
             
+        }
+
+        public static void AddAllDynamicCommandConsumers(this IServiceCollection services)
+        {
+            typeof(UserDeleteCommand).Assembly.GetExportedTypes().ToList().ForEach(type =>
+            {
+                if (!type.IsAbstract && !type.IsInterface && type.IsAssignableTo(typeof(IDynamicCommandConsumer)))
+                {
+                    services.AddKeyedTransient(typeof(IDynamicCommandConsumer), type.Name, type);
+                }
+            });
+                  
         }
     }
 }

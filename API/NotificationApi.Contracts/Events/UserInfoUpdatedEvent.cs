@@ -1,6 +1,4 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
-using NotificationApi.Contracts.Models;
+﻿using NotificationApi.Contracts.Models;
 
 namespace NotificationApi.Contracts.Events
 {

@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NotificationApi.Contracts\NotificationApi.Contracts.csproj" />
+    <ProjectReference Include="..\SchoolManagement.Contract.Shared\SchoolManagement.Shared.csproj" />
   </ItemGroup>
 
 </Project>

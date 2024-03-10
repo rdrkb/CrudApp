@@ -1,3 +1,4 @@
+using SchoolManagement.Shared.CQRS;
 using SchoolManagementApi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,7 @@ builder.Services.AddRabbitMQ(builder.Configuration);
 builder.Services.AddMediatRService();
 
 builder.Services.AddCustomServices();
+builder.Services.AddAllDynamicCommandConsumers();
 
 builder.Services.AddJwtAuthentication(builder.Configuration);
 builder.Services.AddCustomAuthorization();
@@ -27,6 +29,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+IocContainer.Instance.SetServiceProvider(app.Services); // root service provider
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

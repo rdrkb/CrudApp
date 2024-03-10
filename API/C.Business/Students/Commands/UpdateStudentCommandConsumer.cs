@@ -3,10 +3,11 @@ using MassTransit;
 using MediatR;
 using NotificationApi.Contracts.Events;
 using NotificationApi.Contracts.Models;
+using SchoolManagement.Shared.CQRS;
 
 namespace Business.Students.Commands
 {
-    public class UpdateStudentCommandConsumer : IRequestHandler<UpdateStudentCommand, UserNotification>
+    public class UpdateStudentCommandConsumer : ACommandConsumer<UpdateStudentCommand, UserNotification>
     {
         private readonly IStudentService _studentService;
         private readonly IBus _bus;
@@ -17,23 +18,22 @@ namespace Business.Students.Commands
             _bus = bus;
         }
 
-        public async Task<UserNotification> Handle(UpdateStudentCommand request, CancellationToken cancellationToken)
+        protected override async Task<UserNotification> ExecuteAsync(UpdateStudentCommand command, ConsumeContext<UpdateStudentCommand> context = null)
         {
-            List<UpdatedField> updatedFields = await _studentService.UpdateStudent(request.Username, request.Student);
+            List<UpdatedField> updatedFields = await _studentService.UpdateStudent(command.Username, command.Student);
 
             UserNotification notification = new UserNotification
             {
                 Id = Guid.NewGuid().ToString(),
                 Title = "User Info Updated",
-                Username = request.Username,
-                Description = GetDescription(updatedFields, request.Username),
-                Receiver = "Admin",
+                Username = command.Username,
+                Description = GetDescription(updatedFields, command.Username),
+                Receiver = "@admin",
                 Content = updatedFields,
                 CreatedAt = DateTime.UtcNow
             };
 
-
-            await _bus.Publish(new UserInfoUpdatedEvent
+            var userInfoUpdatedEvent = new UserInfoUpdatedEvent
             {
                 Id = notification.Id,
                 Title = notification.Title,
@@ -42,10 +42,20 @@ namespace Business.Students.Commands
                 Receiver = notification.Receiver,
                 Content = notification.Content,
                 CreatedAt = notification.CreatedAt
-            });
+            };
+
+            if (context is not null)
+            {
+                await context.Publish(userInfoUpdatedEvent);
+            }
+            else
+            {
+                await _bus.Publish(userInfoUpdatedEvent);
+            }
 
             return notification;
         }
+
         private string GetDescription(List<UpdatedField> updatedFields, string username)
         {
             if (updatedFields.Count == 1)

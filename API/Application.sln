@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationApi.Contracts",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{F06CA994-2DA8-44EB-A173-6FA93E4D9A68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolManagement.Contract.Shared", "SchoolManagement.Contract.Shared\SchoolManagement.Contract.Shared.csproj", "{DDB2421B-473A-48B0-90B1-23E4D6AC95B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolManagement.Shared", "SchoolManagement.Contract.Shared\SchoolManagement.Shared.csproj", "{DDB2421B-473A-48B0-90B1-23E4D6AC95B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

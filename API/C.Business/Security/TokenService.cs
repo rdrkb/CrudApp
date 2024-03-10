@@ -54,6 +54,8 @@ namespace Business.Security
                 var principal = tokenHandler.ValidateToken(token, _tokenValidationParameters, out _);
 
                 var roleClaim = principal.FindFirst("role");
+                
+                roleClaim = principal.FindFirst("http://schemas.microsoft.com/ws/2008/06/identity/claims/role");
 
                 if(roleClaim != null)
                 {

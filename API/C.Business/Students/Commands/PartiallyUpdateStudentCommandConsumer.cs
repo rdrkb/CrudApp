@@ -1,9 +1,10 @@
 ﻿using Business.Students.Services;
-using MediatR;
+using MassTransit;
+using SchoolManagement.Shared.CQRS;
 
 namespace Business.Students.Commands
 {
-    public class PartiallyUpdateStudentCommandConsumer : IRequestHandler<PartiallyUpdateStudentCommand, bool>
+    public class PartiallyUpdateStudentCommandConsumer : ACommandConsumer<PartiallyUpdateStudentCommand, bool>
     {
         private readonly IStudentService _studentService;
 
@@ -12,14 +13,14 @@ namespace Business.Students.Commands
             _studentService = studentService;
         }
 
-        public async Task<bool> Handle(PartiallyUpdateStudentCommand request, CancellationToken cancellationToken)
+        protected override async Task<bool> ExecuteAsync(PartiallyUpdateStudentCommand command, ConsumeContext<PartiallyUpdateStudentCommand> context = null)
         {
-            if (string.IsNullOrEmpty(request.Username) || request.PatchDocument == null)
+            if (string.IsNullOrEmpty(command.Username) || command.PatchDocument == null)
             {
                 throw new Exception("Invalid username or payload");
             }
 
-            return await _studentService.PartiallyUpdateStudent(request.Username, request.PatchDocument);
+            return await _studentService.PartiallyUpdateStudent(command.Username, command.PatchDocument);
         }
     }
 }
